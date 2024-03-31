@@ -1,0 +1,15 @@
+C:\Users\Mikayel\Desktop\C-Sharp-Project\obj\Debug\C-Sharp-Project.csproj.AssemblyReference.cache
+C:\Users\Mikayel\Desktop\C-Sharp-Project\obj\Debug\MainWindow.g.cs
+C:\Users\Mikayel\Desktop\C-Sharp-Project\obj\Debug\App.g.cs
+C:\Users\Mikayel\Desktop\C-Sharp-Project\obj\Debug\C-Sharp-Project_MarkupCompile.cache
+C:\Users\Mikayel\Desktop\C-Sharp-Project\obj\Debug\C-Sharp-Project_MarkupCompile.lref
+C:\Users\Mikayel\Desktop\C-Sharp-Project\bin\Debug\C-Sharp-Project.exe.config
+C:\Users\Mikayel\Desktop\C-Sharp-Project\bin\Debug\C-Sharp-Project.exe
+C:\Users\Mikayel\Desktop\C-Sharp-Project\bin\Debug\C-Sharp-Project.pdb
+C:\Users\Mikayel\Desktop\C-Sharp-Project\obj\Debug\MainWindow.baml
+C:\Users\Mikayel\Desktop\C-Sharp-Project\obj\Debug\C-Sharp-Project.g.resources
+C:\Users\Mikayel\Desktop\C-Sharp-Project\obj\Debug\C_Sharp_Project.Properties.Resources.resources
+C:\Users\Mikayel\Desktop\C-Sharp-Project\obj\Debug\C-Sharp-Project.csproj.GenerateResource.cache
+C:\Users\Mikayel\Desktop\C-Sharp-Project\obj\Debug\C-Sharp-Project.csproj.CoreCompileInputs.cache
+C:\Users\Mikayel\Desktop\C-Sharp-Project\obj\Debug\C-Sharp-Project.exe
+C:\Users\Mikayel\Desktop\C-Sharp-Project\obj\Debug\C-Sharp-Project.pdb

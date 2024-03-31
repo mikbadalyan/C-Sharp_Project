@@ -1,0 +1,55 @@
+﻿<Window x:Class="C_Sharp_Project.MainWindow"
+        
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:C_Sharp_Project"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="438" Width="416" ResizeMode="CanMinimize" MouseMove="Window_MouseMove">
+    <Grid>
+        <Image Name="Board" Source="Assets/board.png" Stretch="Fill"/>
+       
+        
+        <Image Name="WhiteKing" Source="Assets/WhiteKing.png" Margin="200,350,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50" MouseDown="WhiteKing_MouseDown" MouseUp="WhiteKing_MouseUp" Cursor="Hand"/>
+        <Image Name="WhiteQueen" Source="Assets/WhiteQueen.png" Margin="150,350,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50" MouseDown="WhiteQueen_MouseDown" MouseUp="WhiteQueen_MouseUp" Cursor="Hand"/>
+        <Image Name="WhiteBishop_One" Source="Assets/WhiteBishop.png" Margin="100,350,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50" MouseDown="WhiteBishop_One_MouseDown" MouseUp="WhiteBishop_One_MouseUp" Cursor="Hand"/>
+        <Image Name="WhiteKnight_One" Source="Assets/WhiteKnight.png" Margin="50,350,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50" MouseDown="WhiteKnight_One_MouseDown" MouseUp="WhiteKnight_One_MouseUp" Cursor="Hand"/>
+        <Image Name="WhiteRook_One" Source="Assets/WhiteRook.png" Margin="0,350,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50" MouseDown="WhiteRook_One_MouseDown" MouseUp="WhiteRook_One_MouseUp" Cursor="Hand"/>
+        <Image Name="WhiteKnight_Two" Source="Assets/WhiteKnight.png" Margin="300,350,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50" MouseDown="WhiteKnight_Two_MouseDown" MouseUp="WhiteKnight_Two_MouseUp" Cursor="Hand"/>
+        <Image Name="WhiteBishop_Two" Source="Assets/WhiteBishop.png" Margin="250,350,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50" MouseDown="WhiteBishop_Two_MouseDown" MouseUp="WhiteBishop_Two_MouseUp" Cursor="Hand"/>
+        <Image Name="WhiteRook_Two" Source="Assets/WhiteRook.png" Margin="350,350,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50" MouseDown="WhiteRook_Two_MouseDown" MouseUp="WhiteRook_Two_MouseUp" Cursor="Hand"/>
+
+
+        <Image Name="WhitePawn_One" Source="Assets/WhitePawn.png" Margin="0, 300,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"  MouseDown="WhitePawn_One_MouseDown" MouseUp="WhitePawn_One_MouseUp" Cursor="Hand"/>
+        <Image Name="WhitePawn_Two" Source="Assets/WhitePawn.png" Margin="50, 300,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"  MouseDown="WhitePawn_Two_MouseDown" MouseUp="WhitePawn_Two_MouseUp" Cursor="Hand"/>
+        <Image Name="WhitePawn_Three" Source="Assets/WhitePawn.png" Margin="100, 300,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"  MouseDown="WhitePawn_Three_MouseDown" MouseUp="WhitePawn_Three_MouseUp" Cursor="Hand"/>
+        <Image Name="WhitePawn_Four" Source="Assets/WhitePawn.png" Margin="150, 300,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"  MouseDown="WhitePawn_Four_MouseDown" MouseUp="WhitePawn_Four_MouseUp" Cursor="Hand"/>
+        <Image Name="WhitePawn_Five" Source="Assets/WhitePawn.png" Margin="200, 300,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"  MouseDown="WhitePawn_Five_MouseDown" MouseUp="WhitePawn_Five_MouseUp" Cursor="Hand"/>
+        <Image Name="WhitePawn_Six" Source="Assets/WhitePawn.png" Margin="250, 300,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"  MouseDown="WhitePawn_Six_MouseDown" MouseUp="WhitePawn_Six_MouseUp" Cursor="Hand"/>
+        <Image Name="WhitePawn_Seven" Source="Assets/WhitePawn.png" Margin="300, 300,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"  MouseDown="WhitePawn_Seven_MouseDown" MouseUp="WhitePawn_Seven_MouseUp" Cursor="Hand"/>
+        <Image Name="WhitePawn_Eight" Source="Assets/WhitePawn.png" Margin="350, 300,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"  MouseDown="WhitePawn_Eight_MouseDown" MouseUp="WhitePawn_Eight_MouseUp" Cursor="Hand"/>
+
+
+
+
+        <Image Name="BlackKnight_One" Source="Assets/BlackKnight.png" Margin="300,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+        <Image Name="BlackBishop_One" Source="Assets/BlackBishop.png" Margin="250,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50" RenderTransformOrigin="-0.063,0.547"/>
+        <Image Name="BlackRook_One" Source="Assets/BlackRook.png" Margin="350,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+        <Image Name="BlackKing" Source="Assets/BlackKing.png" Margin="200,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+        <Image Name="BlackQueen" Source="Assets/BlackQueen.png" Margin="150,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+        <Image Name="BlackBishop_Two" Source="Assets/BlackBishop.png" Margin="100,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+        <Image Name="BlackKnight_Two" Source="Assets/BlackKnight.png" Margin="50,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+        <Image Name="BlackRook_Two" Source="Assets/BlackRook.png" Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+
+        <Image Name="BlackPawn_One" Source="Assets/BlackPawn.png" Margin="0, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+        <Image Name="BlackPawn_Two" Source="Assets/BlackPawn.png" Margin="50, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+        <Image Name="BlackPawn_Three" Source="Assets/BlackPawn.png" Margin="100, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+        <Image Name="BlackPawn_Four" Source="Assets/BlackPawn.png" Margin="150, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+        <Image Name="BlackPawn_Five" Source="Assets/BlackPawn.png" Margin="200, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+        <Image Name="BlackPawn_Six" Source="Assets/BlackPawn.png" Margin="250, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+        <Image Name="BlackPawn_Seven" Source="Assets/BlackPawn.png" Margin="300, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+        <Image Name="BlackPawn_Eight" Source="Assets/BlackPawn.png" Margin="350, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+
+    </Grid>
+</Window>
