@@ -42,14 +42,17 @@
         <Image Name="BlackKnight_Two" Source="Assets/BlackKnight.png" Margin="50,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
         <Image Name="BlackRook_Two" Source="Assets/BlackRook.png" Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
 
-        <Image Name="BlackPawn_One" Source="Assets/BlackPawn.png" Margin="0, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
-        <Image Name="BlackPawn_Two" Source="Assets/BlackPawn.png" Margin="50, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
-        <Image Name="BlackPawn_Three" Source="Assets/BlackPawn.png" Margin="100, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
-        <Image Name="BlackPawn_Four" Source="Assets/BlackPawn.png" Margin="150, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
-        <Image Name="BlackPawn_Five" Source="Assets/BlackPawn.png" Margin="200, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
-        <Image Name="BlackPawn_Six" Source="Assets/BlackPawn.png" Margin="250, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
-        <Image Name="BlackPawn_Seven" Source="Assets/BlackPawn.png" Margin="300, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
-        <Image Name="BlackPawn_Eight" Source="Assets/BlackPawn.png" Margin="350, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+        <Image Name="BlackPawn_One" Source="Assets/BlackPawn.png" Margin="350, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+        <Image Name="BlackPawn_Two" Source="Assets/BlackPawn.png" Margin="300, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+        <Image Name="BlackPawn_Three" Source="Assets/BlackPawn.png" Margin="250, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+        <Image Name="BlackPawn_Four" Source="Assets/BlackPawn.png" Margin="200, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+        <Image Name="BlackPawn_Five" Source="Assets/BlackPawn.png" Margin="150, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+        <Image Name="BlackPawn_Six" Source="Assets/BlackPawn.png" Margin="100, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+        <Image Name="BlackPawn_Seven" Source="Assets/BlackPawn.png" Margin="50, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
+        <Image Name="BlackPawn_Eight" Source="Assets/BlackPawn.png" Margin="0, 50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" Height="50"/>
 
     </Grid>
+    
 </Window>
+    
+    
