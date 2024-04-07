@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Media;
 using static C_Sharp_Project.MainWindow;
+using System.Runtime.ConstrainedExecution;
 namespace C_Sharp_Project
 {
     public partial class MainWindow : Window
@@ -47,6 +48,22 @@ namespace C_Sharp_Project
             public int target_x;
             public int target_y;
             public int value;
+
+            public int crit = 0;
+           
+            public void criteria()
+            {
+                crit = 0;
+                for (int i = 0; i < 8; i++)
+                {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        crit = crit + ChessBoard[i, j];
+                       
+                    }
+                }
+                
+            }
         }
 
         public class Rookk : ChessPiece
@@ -755,8 +772,9 @@ namespace C_Sharp_Project
             MouseU(WhiteBishop_Two, ref WhiteBishop_Two_Position_X, ref WhiteBishop_Two_Position_Y, ref White_Bishop_Two, 33, ref ChessBoard);
             First_Point();
         }
-        
-  
+
+       
+
 
         void Utel(int i, int j)
         {
@@ -969,17 +987,25 @@ namespace C_Sharp_Project
 
         void Pawnns(int i, int j, ref int amenamec)
         {
-            if (ChessBoard[i, j] > amenamec && ChessBoard[i, j] != 1000 )
+            if (Math.Abs(Queen1.crit) < 180)
             {
-                if (ChessBoard[i, j] != 0)
+                if (ChessBoard[i, j] > amenamec && ChessBoard[i, j] != 1000)
                 {
-                    amenamec = ChessBoard[i, j];
-                } else if (ChessBoard[i, j] == 0 && ChessBoard[i + 1, j] == 0)
-                {
-                    amenamec = 0;
+                    if (ChessBoard[i, j] != 0)
+                    {
+                        amenamec = ChessBoard[i, j];
+                    }
+                    else if (ChessBoard[i, j] == 0 && ChessBoard[i + 1, j] == 0)
+                    {
+                        amenamec = 0;
+                    }
+
+
                 }
-               
-                
+            }
+            else
+            {
+                amenamec = 0;
             }
             return;
         }
@@ -988,6 +1014,7 @@ namespace C_Sharp_Project
 
         void choose()
         {
+            Queen1.criteria();
             amenamec = -1;
             for (int i = 0; i < 8; i++)
             {
@@ -995,6 +1022,7 @@ namespace C_Sharp_Project
                 {
                     if ((((i - Pawn1.figure_ytemp) == 1 && (Pawn1.figure_xtemp - j) == 1) || ((i - Pawn1.figure_ytemp) == 1 && (j - Pawn1.figure_xtemp) == 1)) && ChessBoard[i, j] >= 0 && ChessBoard[Pawn1.figure_ytemp, Pawn1.figure_xtemp] == -10)
                     {
+                        
                         Pawnns(i, j, ref amenamec);
                         
                     }
@@ -1035,72 +1063,107 @@ namespace C_Sharp_Project
                     }
                     if ((j == Queen1.figure_xtemp || i == Queen1.figure_ytemp || Math.Abs(Queen1.figure_ytemp - i) == Math.Abs(Queen1.figure_xtemp - j)) && ChessBoard[i, j] >= 0)
                     {
-                        Queen1.Queen_Check(i, j);
-                        if (!Queen1.figure)
+                        if (Math.Abs(Queen1.crit) < 180)
                         {
-
-                            if (ChessBoard[i, j] > amenamec)
+                            Queen1.Queen_Check(i, j);
+                            if (!Queen1.figure)
                             {
-                                amenamec = ChessBoard[i, j];
-                            }
-                            
 
+                                if (ChessBoard[i, j] > amenamec)
+                                {
+                                    amenamec = ChessBoard[i, j];
+                                }
+
+
+                            }
+                        }
+                        else
+                        {
+                            amenamec = 0;
                         }
 
                     }
                     if ((j == Rook1.figure_xtemp || i == Rook1.figure_ytemp) && ChessBoard[i, j] >= 0)
                     {
-                        Rook1.Rook_Check(i, j);
-                        if (!Rook1.figure)
+                        if (Math.Abs(Queen1.crit) < 180)
                         {
-
-                            if (ChessBoard[i, j] > amenamec)
+                            Rook1.Rook_Check(i, j);
+                            if (!Rook1.figure)
                             {
-                                amenamec = ChessBoard[i, j];
+
+                                if (ChessBoard[i, j] > amenamec)
+                                {
+                                    amenamec = ChessBoard[i, j];
+                                }
+
                             }
-                         
+                        }
+                        else
+                        {
+                            amenamec = 0;
                         }
 
                     }
 
                     if ((j == Rook2.figure_xtemp || i == Rook2.figure_ytemp) && ChessBoard[i, j] >= 0)
                     {
-                        Rook2.Rook_Check(i, j);
-                        if (!Rook2.figure)
+                        if (Math.Abs(Queen1.crit) < 180)
                         {
-
-                            if (ChessBoard[i, j] > amenamec)
+                            Rook2.Rook_Check(i, j);
+                            if (!Rook2.figure)
                             {
-                                amenamec = ChessBoard[i, j];
+
+                                if (ChessBoard[i, j] > amenamec)
+                                {
+                                    amenamec = ChessBoard[i, j];
+                                }
+
+
                             }
-                            
-
                         }
-
+                        else
+                        {
+                            amenamec = 0;
+                        }
                     }
                     if (Math.Abs(Bishop1.figure_ytemp - i) == Math.Abs(Bishop1.figure_xtemp - j) && ChessBoard[i, j] >= 0)
                     {
-                        Bishop1.Bishop_Check(i, j);
-                        if (!Bishop1.figure)
+                        if (Math.Abs(Queen1.crit) < 180)
                         {
-                            if (ChessBoard[i, j] > amenamec)
+                            Bishop1.Bishop_Check(i, j);
+                            if (!Bishop1.figure)
                             {
-                                amenamec = ChessBoard[i, j];
+                                if (ChessBoard[i, j] > amenamec)
+                                {
+                                    amenamec = ChessBoard[i, j];
+                                }
+
                             }
-                            
                         }
+                        else
+                        {
+                            amenamec=0;
+                        }
+
                     }
 
                     if (Math.Abs(Bishop2.figure_ytemp - i) == Math.Abs(Bishop2.figure_xtemp - j) && ChessBoard[i, j] >= 0)
                     {
-                        Bishop2.Bishop_Check(i, j);
-                        if (!Bishop2.figure)
+                        if (Math.Abs(Queen1.crit) < 180)
                         {
-                            if (ChessBoard[i, j] > amenamec)
+                            Bishop2.Bishop_Check(i, j);
+                            if (!Bishop2.figure)
                             {
-                                amenamec = ChessBoard[i, j];
+                                if (ChessBoard[i, j] > amenamec)
+                                {
+                                    amenamec = ChessBoard[i, j];
+                                }
+
                             }
-                            
+                        }
+                        else
+                        {
+                            amenamec = 0;
                         }
                     }
 
@@ -1108,27 +1171,47 @@ namespace C_Sharp_Project
 
                     if (((Math.Abs(Knight1.figure_ytemp - i) == 2 && Math.Abs(Knight1.figure_xtemp - j) == 1) || (Math.Abs(Knight1.figure_ytemp - i) == 1 && Math.Abs(Knight1.figure_xtemp - j) == 2)) && ChessBoard[i, j] >= 0)
                     {
-                        if (ChessBoard[i, j] > amenamec)
+                        if (Math.Abs(Queen1.crit) < 180)
                         {
-                            amenamec = ChessBoard[i, j];
+                            if (ChessBoard[i, j] > amenamec)
+                            {
+                                amenamec = ChessBoard[i, j];
+                            }
+                        }
+                        else
+                        {
+                            amenamec = 0;
                         }
                         
                     }
                     if (((Math.Abs(Knight2.figure_ytemp - i) == 2 && Math.Abs(Knight2.figure_xtemp - j) == 1) || (Math.Abs(Knight2.figure_ytemp - i) == 1 && Math.Abs(Knight2.figure_xtemp - j) == 2)) && ChessBoard[i, j] >= 0)
                     {
-                        if (ChessBoard[i, j] > amenamec)
+                        if (Math.Abs(Queen1.crit) < 180)
                         {
-                            amenamec = ChessBoard[i, j];
+                            if (ChessBoard[i, j] > amenamec)
+                            {
+                                amenamec = ChessBoard[i, j];
+                            }
                         }
-                        
+                        else
+                        {
+                            amenamec = 0;
+                        }
+
                     }
                     if (((Math.Abs(King1.figure_ytemp - i) == 1 && Math.Abs(King1.figure_xtemp - j) == 0) || (Math.Abs(King1.figure_ytemp - i) == 0 && Math.Abs(King1.figure_xtemp - j) == 1) || (Math.Abs(King1.figure_ytemp - i) == 1 && Math.Abs(King1.figure_xtemp - j) == 1)) && ChessBoard[i, j] >= 0)
                     {
-                        if (ChessBoard[i, j] > amenamec)
+                        if (Math.Abs(Queen1.crit) < 180)
                         {
-                            amenamec = ChessBoard[i, j];
+                            if (ChessBoard[i, j] > amenamec)
+                            {
+                                amenamec = ChessBoard[i, j];
+                            }
                         }
-                       
+                        else
+                        {
+                            amenamec = 0;
+                        }
                     }
                 }
             }
@@ -1138,7 +1221,7 @@ namespace C_Sharp_Project
         
         void First_Point()
         {
-
+            
             Rook1.figure_xtemp = Rook1.figure_x;
             Rook1.figure_ytemp = Rook1.figure_y;
 
