@@ -14,13 +14,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Media;
+using static C_Sharp_Project.MainWindow;
 namespace C_Sharp_Project
 {
     public partial class MainWindow : Window
     {
+
+
         public static int[,] ChessBoard = {
-                                { -50,     -30,    -33,     -90,     -1000,    -33,    -30,      -50 },
-                                { -10,     -10,    -10,     -10,     -10,      -10,    -10,      -10   },
+                                { -50,     -30,    -33,     -90,     -1000,    -33,    -30,      -50  },
+                                { -10,     -10,    -10,     -10,     -10,      -10,    -10,      -10  },
                                 {  0,       0,      0,       0,       0,        0,      0,        0   },
                                 {  0,       0,      0,       0,       0,        0,      0,        0   },
                                 {  0,       0,      0,       0,       0,        0,      0,        0   },
@@ -29,13 +32,342 @@ namespace C_Sharp_Project
                                 {  50,      30,     33,      90,      1000,     33,     30,       50  }
         };
 
+
+
+
+
+        public class ChessPiece
+        {
+            public FrameworkElement name;
+            public int figure_x;
+            public int figure_y;
+            public bool figure;
+            public int figure_xtemp;
+            public int figure_ytemp;
+            public int target_x;
+            public int target_y;
+            public int value;
+        }
+
+        public class Rookk : ChessPiece
+        {
+            
+
+            public Rookk()
+            {
+                value = -50;
+            }
+            public void Rook_Move()
+            {
+                Rook_Check(target_y, target_x);
+                if (!figure)
+                {
+
+                    ChessBoard[figure_y, figure_x] = 0;
+                    figure_y = target_y;
+                    figure_x = target_x;
+                    
+                    ChessBoard[figure_y, figure_x] = value;
+                    name.Margin = new Thickness(figure_x * 50, figure_y * 50, 0, 0);
+                    
+
+                }
+                return;
+            }
+
+            public void Rook_Check(int i, int j)
+            {
+                figure = false;
+                if (j == figure_xtemp)
+                {
+                    for (int l = 1; l < Math.Abs(i - figure_ytemp); l++)
+                    {
+                        if (i > figure_ytemp && ChessBoard[figure_ytemp + l, j] != 0)
+                        {
+                            figure = true;
+                            break;
+                        }
+                        if (i < figure_ytemp && ChessBoard[figure_ytemp - l, j] != 0)
+                        {
+                            figure = true;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    for (int l = 1; l < Math.Abs(j - figure_xtemp); l++)
+                    {
+                        if (j > figure_xtemp && ChessBoard[i, figure_xtemp + l] != 0)
+                        {
+                            figure = true;
+                            break;
+                        }
+                        if (j < figure_xtemp && ChessBoard[i, figure_xtemp - l] != 0)
+                        {
+                            figure = true;
+                            break;
+                        }
+                    }
+                }
+
+
+                return;
+            }
+        }
+
+        public class Bishop : ChessPiece
+        {
+            
+            
+            public void Bishop_Move()
+            {
+                Bishop_Check(target_y, target_x);
+                if (!figure)
+                {
+
+                    ChessBoard[figure_y, figure_x] = 0;
+                    figure_y = target_y;
+                    figure_x = target_x;
+                    
+                    ChessBoard[figure_y, figure_x] = -33;
+                    name.Margin = new Thickness(figure_x * 50, figure_y * 50, 0, 0);
+                   
+
+                }
+                return;
+            }
+
+            public void Bishop_Check(int i, int j)
+            {
+                figure = false;
+                for (int l = 1; l < Math.Abs(i - figure_ytemp); l++)
+                {
+                    if (i > figure_ytemp && j < figure_xtemp && ChessBoard[figure_ytemp + l, figure_xtemp - l] != 0)
+                    {
+                        figure = true;
+                    }
+                    if (i > figure_ytemp && j > figure_xtemp && ChessBoard[figure_ytemp + l, figure_xtemp + l] != 0)
+                    {
+                        figure = true;
+                    }
+                    if (i < figure_ytemp && j < figure_xtemp && ChessBoard[figure_ytemp - l, figure_xtemp - l] != 0)
+                    {
+                        figure = true;
+                    }
+                    if (i < figure_ytemp && j > figure_xtemp && ChessBoard[figure_ytemp - l, figure_xtemp + l] != 0)
+                    {
+                        figure = true;
+                    }
+                }
+
+                return;
+            }
+        }
+
+        public class Knight : ChessPiece
+        {
+            
+            public Knight()
+            {
+                value = -30;
+            }
+
+            public void Knight_Move()
+            {
+                if (!figure)
+                {
+
+                    ChessBoard[figure_y, figure_x] = 0;
+                    figure_y = target_y;
+                    figure_x = target_x;
+                    
+                    ChessBoard[figure_y, figure_x] = value;
+                    name.Margin = new Thickness(figure_x * 50, figure_y * 50, 0, 0);
+
+
+                }
+                return;
+            }
+
+           
+        }
+
+        public class Queen : ChessPiece
+        {
+            
+            public Queen()
+            {
+                value = -90;
+            }
+
+            public void Queen_Move()
+            {
+                if (!figure)
+                {
+
+                    ChessBoard[figure_y, figure_x] = 0;
+                    figure_y = target_y;
+                    figure_x = target_x;
+                    
+                    ChessBoard[figure_y, figure_x] = value;
+                    name.Margin = new Thickness(figure_x * 50, figure_y * 50, 0, 0);
+
+
+                }
+                return;
+            }
+
+            public void Queen_Check(int i, int j)
+            {
+                figure = false;
+                if (j == figure_xtemp)
+                {
+                    for (int l = 1; l < Math.Abs(i - figure_ytemp); l++)
+                    {
+                        if (i > figure_ytemp && ChessBoard[figure_ytemp + l, j] != 0)
+                        {
+                            figure = true;
+                            break;
+                        }
+                        if (i < figure_ytemp && ChessBoard[figure_ytemp - l, j] != 0)
+                        {
+                            figure = true;
+                            break;
+                        }
+                    }
+                }
+                else if (Math.Abs(figure_ytemp - i) == Math.Abs(figure_xtemp - j))
+                {
+                    for (int l = 1; l < Math.Abs(i - figure_ytemp); l++)
+                    {
+                        if (i > figure_ytemp && j < figure_xtemp && ChessBoard[figure_ytemp + l, figure_xtemp - l] != 0)
+                        {
+                            figure = true;
+                        }
+                        if (i > figure_ytemp && j > figure_xtemp && ChessBoard[figure_ytemp + l, figure_xtemp + l] != 0)
+                        {
+                            figure = true;
+                        }
+                        if (i < figure_ytemp && j < figure_xtemp && ChessBoard[figure_ytemp - l, figure_xtemp - l] != 0)
+                        {
+                            figure = true;
+                        }
+                        if (i < figure_ytemp && j > figure_xtemp && ChessBoard[figure_ytemp - l, figure_xtemp + l] != 0)
+                        {
+                            figure = true;
+                        }
+                    }
+                }
+                else
+                {
+                    for (int l = 1; l < Math.Abs(j - figure_xtemp); l++)
+                    {
+                        if (j > figure_xtemp && ChessBoard[i, figure_xtemp + l] != 0)
+                        {
+                            figure = true;
+                            break;
+                        }
+                        if (j < figure_xtemp && ChessBoard[i, figure_xtemp - l] != 0)
+                        {
+                            figure = true;
+                            break;
+                        }
+                    }
+                }
+
+                return;
+            }
+        }
+
+        public class King : ChessPiece
+        {
+            
+            public King()
+            {
+                value = -1000;
+            }
+
+            public void King_Move()
+            {
+                if (!figure)
+                {
+
+                    ChessBoard[figure_y, figure_x] = 0;
+                    figure_y = target_y;
+                    figure_x = target_x;
+                    
+                    ChessBoard[figure_y, figure_x] = value;
+                    name.Margin = new Thickness(figure_x * 50, figure_y * 50, 0, 0);
+
+
+                }
+                return;
+            }
+
+        }
+
+        public class Pawn : ChessPiece
+        {
+            
+            public Pawn()
+            {
+                value = -10;
+            }
+
+            public void Pawn_Move(int amenamec)
+            {
+                if (amenamec == 0)
+                {
+                    ChessBoard[figure_y, figure_x] = 0;
+                    figure_y = target_y;
+                    ChessBoard[figure_y, figure_x] = -10;
+                    name.Margin = new Thickness(figure_x * 50, figure_y * 50, 0, 0);
+                    return;
+                }
+                else
+                {
+                    ChessBoard[figure_y, figure_x] = 0;
+                    figure_x = target_x;
+                    figure_y = target_y;
+
+                    
+                    ChessBoard[figure_y, figure_x] = -10;
+                    name.Margin = new Thickness(figure_x * 50, figure_y * 50, 0, 0);
+                    return;
+                }
+                
+            }
+
+            public void Pawn_Check()
+            {
+                figure = false;
+                if (ChessBoard[figure_y + 1, figure_x] != 0)
+                {
+                    figure = true;
+                }
+            }
+        }
+
+
+
+
+
+
         bool White_Pawn_One = false, White_Pawn_Two = false, White_Pawn_Three = false, White_Pawn_Four = false, White_Pawn_Five = false, White_Pawn_Six = false, White_Pawn_Seven = false, White_Pawn_Eight = false, White_King = false, White_Knight_One = false, White_Knight_Two = false, White_Bishop_One = false, White_Bishop_Two = false, White_Rook_One = false, White_Rook_Two = false, White_Queen = false;
         double DeltaX, DeltaY;
         int WhitePawn_One_Position_Y = 6, WhitePawn_One_Position_X = 0, WhitePawn_Two_Position_Y = 6, WhitePawn_Two_Position_X = 1, WhitePawn_Three_Position_Y = 6, WhitePawn_Three_Position_X = 2, WhitePawn_Four_Position_Y = 6, WhitePawn_Four_Position_X = 3, WhitePawn_Five_Position_Y = 6, WhitePawn_Five_Position_X = 4, WhitePawn_Six_Position_Y = 6, WhitePawn_Six_Position_X = 5, WhitePawn_Seven_Position_Y = 6, WhitePawn_Seven_Position_X = 6, WhitePawn_Eight_Position_Y = 6, WhitePawn_Eight_Position_X = 7, WhiteKing_Position_Y = 7, WhiteKing_Position_X = 4, WhiteQueen_Position_Y = 7, WhiteQueen_Position_X = 3, WhiteBishop_One_Position_Y = 7, WhiteBishop_One_Position_X = 2, WhiteKnight_One_Position_Y = 7, WhiteKnight_One_Position_X = 1, WhiteRook_One_Position_Y = 7, WhiteRook_One_Position_X = 0, WhiteKnight_Two_Position_Y = 7, WhiteKnight_Two_Position_X = 6, WhiteBishop_Two_Position_Y = 7, WhiteBishop_Two_Position_X = 5, WhiteRook_Two_Position_Y = 7, WhiteRook_Two_Position_X = 7;
-        int BlackQueen_Position_X = 3, BlackQueen_Position_Y = 0, BlackQueen_Position_Xtemp = 3, BlackQueen_Position_Ytemp = 0, BlackKnight_Position_Y = 0, BlackKnight_Position_X = 6, BlackKnight_Two_Position_Y = 0, BlackKnight_Two_Position_X = 1, BlackBishop_Position_Y = 0, BlackBishop_Position_X = 5, BlackBishop_Two_Position_Y = 0, BlackBishop_Two_Position_X = 2, BlackRook_Position_Y = 0, BlackRook_Position_X = 7, BlackRook_Two_Position_Y = 0, BlackRook_Two_Position_X = 0, BlackKing_Position_Y = 0, BlackKing_Position_X = 4, BlackKnight_Position_Ytemp = 0, BlackKnight_Position_Xtemp = 6, BlackKnight_Two_Position_Ytemp = 0, BlackKnight_Two_Position_Xtemp = 1, BlackBishop_Position_Ytemp = 0, BlackBishop_Position_Xtemp = 5, BlackBishop_Two_Position_Ytemp = 0, BlackBishop_Two_Position_Xtemp = 5, BlackRook_Position_Ytemp = 0, BlackRook_Position_Xtemp = 2, BlackRook_Two_Position_Ytemp = 0, BlackRook_Two_Position_Xtemp = 0;
-        int BlackPawn_One_Position_Y = 1, BlackPawn_One_Position_X = 7, BlackPawn_Two_Position_Y = 1, BlackPawn_Two_Position_X = 6, BlackPawn_Three_Position_Y = 1, BlackPawn_Three_Position_X = 5, BlackPawn_Four_Position_Y = 1, BlackPawn_Four_Position_X = 4, BlackPawn_Five_Position_Y = 1, BlackPawn_Five_Position_X = 3, BlackPawn_Six_Position_Y = 1, BlackPawn_Six_Position_X = 2, BlackPawn_Seven_Position_Y = 1, BlackPawn_Seven_Position_X = 1, BlackPawn_Eight_Position_Y = 1, BlackPawn_Eight_Position_X = 0;
-        int BlackKing_Position_Xtemp = 4, BlackKing_Position_Ytemp = 0, BlackPawn_One_Position_Ytemp = 1, BlackPawn_One_Position_Xtemp = 7, BlackPawn_Two_Position_Ytemp = 1, BlackPawn_Two_Position_Xtemp = 6, BlackPawn_Three_Position_Ytemp = 1, BlackPawn_Three_Position_Xtemp = 5, BlackPawn_Four_Position_Ytemp = 1, BlackPawn_Four_Position_Xtemp = 4, BlackPawn_Five_Position_Ytemp = 1, BlackPawn_Five_Position_Xtemp = 3, BlackPawn_Six_Position_Ytemp = 1, BlackPawn_Six_Position_Xtemp = 2, BlackPawn_Seven_Position_Ytemp = 1, BlackPawn_Seven_Position_Xtemp = 1, BlackPawn_Eight_Position_Ytemp = 1, BlackPawn_Eight_Position_Xtemp = 0;
-        bool Queen = false, Rook_V = false, Bishop_V = false, Knight_V = false, Rook_V_second = false, Bishop_V_second = false, Knight_V_second = false;
+        Pawn Pawn1, Pawn2, Pawn3, Pawn4, Pawn5, Pawn6, Pawn7, Pawn8;
+        King King1;
+        Queen Queen1;
+        Bishop Bishop1, Bishop2;
+        Knight Knight1, Knight2;
+        Rookk Rook1, Rook2;
+        
+        
+        
+        
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -56,7 +388,133 @@ namespace C_Sharp_Project
             StackPanel.SetZIndex(WhiteRook_One, 1);
             StackPanel.SetZIndex(WhiteRook_Two, 1);
 
+            Rook1 = new Rookk();
+            Rook1.figure_x = 7;
+            Rook1.figure_y = 0;
+            Rook1.figure_xtemp = 7;
+            Rook1.figure_ytemp = 0;
+            Rook1.figure = false;
+            Rook1.name = BlackRook_One;
 
+            Rook2 = new Rookk();
+            Rook2.figure_x = 0;
+            Rook2.figure_y = 0;
+            Rook2.figure_xtemp = 0;
+            Rook2.figure_ytemp = 0;
+            Rook2.figure = false;
+            Rook2.name = BlackRook_Two;
+
+            Bishop1 = new Bishop();
+            Bishop1.figure_x = 5;
+            Bishop1.figure_y = 0;
+            Bishop1.figure_xtemp = 5;
+            Bishop1.figure_ytemp = 0;
+            Bishop1.figure = false;
+            Bishop1.name = BlackBishop_One;
+
+            Bishop2 = new Bishop();
+            Bishop2.figure_x = 2;
+            Bishop2.figure_y = 0;
+            Bishop2.figure_xtemp = 2;
+            Bishop2.figure_ytemp = 0;
+            Bishop2.figure = false;
+            Bishop2.name = BlackBishop_Two;
+
+            Knight1 = new Knight();
+            Knight1.figure_x = 6;
+            Knight1.figure_y = 0;
+            Knight1.figure_xtemp = 6;
+            Knight1.figure_ytemp = 0;
+            Knight1.figure = false;
+            Knight1.name = BlackKnight_One;
+
+            Knight2 = new Knight();
+            Knight2.figure_x = 1;
+            Knight2.figure_y = 0;
+            Knight2.figure_xtemp = 1;
+            Knight2.figure_ytemp = 0;
+            Knight2.figure = false;
+            Knight2.name = BlackKnight_Two;
+
+            Queen1 = new Queen();
+            Queen1.figure_x = 3;
+            Queen1.figure_y = 0;
+            Queen1.figure_xtemp = 3;
+            Queen1.figure_ytemp = 0;
+            Queen1.figure = false;
+            Queen1.name = BlackQueen;
+
+            King1 = new King();
+            King1.figure_x = 4;
+            King1.figure_y = 0;
+            King1.figure_xtemp = 4;
+            King1.figure_ytemp = 0;
+            King1.figure = false;
+            King1.name = BlackKing;
+
+            Pawn1 = new Pawn();
+            Pawn1.figure_x = 7;
+            Pawn1.figure_y = 1;
+            Pawn1.figure_xtemp = 7;
+            Pawn1.figure_ytemp = 1;
+            Pawn1.figure = false;
+            Pawn1.name = BlackPawn_One;
+
+            Pawn2 = new Pawn();
+            Pawn2.figure_x = 6;
+            Pawn2.figure_y = 1;
+            Pawn2.figure_xtemp = 6;
+            Pawn2.figure_ytemp = 1;
+            Pawn2.figure = false;
+            Pawn2.name = BlackPawn_Two;
+
+            Pawn3 = new Pawn();
+            Pawn3.figure_x = 5;
+            Pawn3.figure_y = 1;
+            Pawn3.figure_xtemp = 5;
+            Pawn3.figure_ytemp = 1;
+            Pawn3.figure = false;
+            Pawn3.name = BlackPawn_Three;
+
+            Pawn4 = new Pawn();
+            Pawn4.figure_x = 4;
+            Pawn4.figure_y = 1;
+            Pawn4.figure_xtemp = 4;
+            Pawn4.figure_ytemp = 1;
+            Pawn4.figure = false;
+            Pawn4.name = BlackPawn_Four;
+
+            Pawn5 = new Pawn();
+            Pawn5.figure_x = 3;
+            Pawn5.figure_y = 1;
+            Pawn5.figure_xtemp = 3;
+            Pawn5.figure_ytemp = 1;
+            Pawn5.figure = false;
+            Pawn5.name = BlackPawn_Five;
+
+            Pawn6 = new Pawn();
+            Pawn6.figure_x = 2;
+            Pawn6.figure_y = 1;
+            Pawn6.figure_xtemp = 2;
+            Pawn6.figure_ytemp = 1;
+            Pawn6.figure = false;
+            Pawn6.name = BlackPawn_Six;
+
+            Pawn7 = new Pawn();
+            Pawn7.figure_x = 1;
+            Pawn7.figure_y = 1;
+            Pawn7.figure_xtemp = 1;
+            Pawn7.figure_ytemp = 1;
+            Pawn7.figure = false;
+            Pawn7.name = BlackPawn_Seven;
+
+            Pawn8 = new Pawn();
+            Pawn8.figure_x = 0;
+            Pawn8.figure_y = 1;
+            Pawn8.figure_xtemp = 0;
+            Pawn8.figure_ytemp = 1;
+            Pawn8.figure = false;
+            Pawn8.name = BlackPawn_Eight;
 
         }
 
@@ -297,475 +755,8 @@ namespace C_Sharp_Project
             MouseU(WhiteBishop_Two, ref WhiteBishop_Two_Position_X, ref WhiteBishop_Two_Position_Y, ref White_Bishop_Two, 33, ref ChessBoard);
             First_Point();
         }
-
-        void Eat(int x, int y)
-        {
-
-            string im = "aaaaaaaaaaaaaaaa";
-            BitmapImage bitmap1 = new BitmapImage(new Uri(im, UriKind.RelativeOrAbsolute));
-            switch (ChessBoard[y, x])
-            {
-                case 10:
-                    WhitePawn_One.Source = bitmap1;
-                    break;
-                case 30:
-
-                    break;
-
-                case 33:
-
-                    break;
-
-                case 50:
-
-                    break;
-
-                case 90:
-
-                    break;
-            }
-
-        }
-
-
-        int Rook(int BlackRook_Position_Ytemp, int BlackRook_Position_Xtemp)
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    if ((j == BlackRook_Position_Xtemp || i == BlackRook_Position_Ytemp) && ChessBoard[i, j] == 1000)
-                    {
-                        if (j == BlackRook_Position_Xtemp)
-                        {
-                            for (int l = 1; l < Math.Abs(WhiteKing_Position_Y - BlackRook_Position_Ytemp); l++)
-                            {
-                                if (WhiteKing_Position_Y > BlackRook_Position_Ytemp && ChessBoard[BlackRook_Position_Ytemp + l, j] != 0)
-                                {
-                                    return 0;
-                                }
-                                if (WhiteKing_Position_Y < BlackRook_Position_Ytemp && ChessBoard[BlackRook_Position_Ytemp - l, j] != 0)
-                                {
-                                    return 0;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            for (int l = 1; l < Math.Abs(WhiteKing_Position_X - BlackRook_Position_Xtemp); l++)
-                            {
-                                if (WhiteKing_Position_X > BlackRook_Position_Xtemp && ChessBoard[i, BlackRook_Position_Xtemp + l] != 0)
-                                {
-                                    return 0;
-                                }
-                                if (WhiteKing_Position_X < BlackRook_Position_Xtemp && ChessBoard[i, BlackRook_Position_Xtemp - l] != 0)
-                                {
-                                    return 0;
-                                }
-                            }
-                        }
-                        if (ChessBoard[BlackRook_Position_Ytemp, BlackRook_Position_Xtemp] >= 0 && ChessBoard[BlackRook_Position_Ytemp, BlackRook_Position_Xtemp] != 1000)
-                        {
-                            if (ChessBoard[BlackRook_Position_Ytemp, BlackRook_Position_Xtemp] > 0)
-                            {
-
-                                Eat(BlackRook_Position_Ytemp, BlackRook_Position_Xtemp);
-                            }
-                            ChessBoard[BlackRook_Position_Y, BlackRook_Position_X] = 0;
-                            BlackRook_Position_Y = BlackRook_Position_Ytemp;
-                            BlackRook_Position_X = BlackRook_Position_Xtemp;
-                            ChessBoard[BlackRook_Position_Y, BlackRook_Position_X] = -50;
-                            BlackRook_One.Margin = new Thickness(BlackRook_Position_Xtemp * 50, BlackRook_Position_Ytemp * 50, 0, 0);
-                            return 11;
-                        }
-                    }
-                }
-            }
-            return 0;
-        }
-
-        int Rook_Two(int BlackRook_Position_Ytemp, int BlackRook_Position_Xtemp)
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    if ((j == BlackRook_Position_Xtemp || i == BlackRook_Position_Ytemp) && ChessBoard[i, j] == 1000)
-                    {
-                        if (j == BlackRook_Position_Xtemp)
-                        {
-                            for (int l = 1; l < Math.Abs(WhiteKing_Position_Y - BlackRook_Position_Ytemp); l++)
-                            {
-                                if (WhiteKing_Position_Y > BlackRook_Position_Ytemp && ChessBoard[BlackRook_Position_Ytemp + l, j] != 0)
-                                {
-                                    return 0;
-                                }
-                                if (WhiteKing_Position_Y < BlackRook_Position_Ytemp && ChessBoard[BlackRook_Position_Ytemp - l, j] != 0)
-                                {
-                                    return 0;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            for (int l = 1; l < Math.Abs(WhiteKing_Position_X - BlackRook_Position_Xtemp); l++)
-                            {
-                                if (WhiteKing_Position_X > BlackRook_Position_Xtemp && ChessBoard[i, BlackRook_Position_Xtemp + l] != 0)
-                                {
-                                    return 0;
-                                }
-                                if (WhiteKing_Position_X < BlackRook_Position_Xtemp && ChessBoard[i, BlackRook_Position_Xtemp - l] != 0)
-                                {
-                                    return 0;
-                                }
-                            }
-                        }
-                        if (ChessBoard[BlackRook_Position_Ytemp, BlackRook_Position_Xtemp] >= 0 && ChessBoard[BlackRook_Position_Ytemp, BlackRook_Position_Xtemp] != 1000)
-                        {
-                            if (ChessBoard[BlackRook_Position_Ytemp, BlackRook_Position_Xtemp] > 0)
-                            {
-
-                                Eat(BlackRook_Position_Ytemp, BlackRook_Position_Xtemp);
-                            }
-                            ChessBoard[BlackRook_Two_Position_Y, BlackRook_Two_Position_X] = 0;
-                            BlackRook_Two_Position_Y = BlackRook_Position_Ytemp;
-                            BlackRook_Two_Position_X = BlackRook_Position_Xtemp;
-                            ChessBoard[BlackRook_Two_Position_Y, BlackRook_Two_Position_X] = -50;
-                            BlackRook_Two.Margin = new Thickness(BlackRook_Position_Xtemp * 50, BlackRook_Position_Ytemp * 50, 0, 0);
-                            return 11;
-                        }
-                    }
-                }
-            }
-            return 0;
-        }
-        int Bishop(int BlackBishop_Position_Ytemp, int BlackBishop_Position_Xtemp)
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    if (Math.Abs(BlackBishop_Position_Ytemp - i) == Math.Abs(BlackBishop_Position_Xtemp - j) && ChessBoard[i, j] == 1000)
-                    {
-                        for (int l = 1; l < Math.Abs(WhiteKing_Position_Y - BlackBishop_Position_Ytemp); l++)
-                        {
-                            if (WhiteKing_Position_Y > BlackBishop_Position_Ytemp && WhiteKing_Position_X < BlackBishop_Position_Xtemp && ChessBoard[BlackBishop_Position_Ytemp + l, BlackBishop_Position_Xtemp - l] != 0)
-                            {
-                                return 0;
-                            }
-                            if (WhiteKing_Position_Y > BlackBishop_Position_Ytemp && WhiteKing_Position_X > BlackBishop_Position_Xtemp && ChessBoard[BlackBishop_Position_Ytemp + l, BlackBishop_Position_Xtemp + l] != 0)
-                            {
-                                return 0;
-                            }
-                            if (WhiteKing_Position_Y < BlackBishop_Position_Ytemp && WhiteKing_Position_X < BlackBishop_Position_Xtemp && ChessBoard[BlackBishop_Position_Ytemp - l, BlackBishop_Position_Xtemp - l] != 0)
-                            {
-                                return 0;
-                            }
-                            if (WhiteKing_Position_Y < BlackBishop_Position_Ytemp && WhiteKing_Position_X > BlackBishop_Position_Xtemp && ChessBoard[BlackBishop_Position_Ytemp - l, BlackBishop_Position_Xtemp + l] != 0)
-                            {
-                                return 0;
-                            }
-                        }
-                        if (ChessBoard[BlackBishop_Position_Ytemp, BlackBishop_Position_Xtemp] >= 0 && ChessBoard[BlackBishop_Position_Ytemp, BlackBishop_Position_Xtemp] != 1000)
-                        {
-                            ChessBoard[BlackBishop_Position_Y, BlackBishop_Position_X] = 0;
-                            BlackBishop_Position_Y = BlackBishop_Position_Ytemp;
-                            BlackBishop_Position_X = BlackBishop_Position_Xtemp;
-                            ChessBoard[BlackBishop_Position_Y, BlackBishop_Position_X] = -33;
-                            BlackBishop_One.Margin = new Thickness(BlackBishop_Position_Xtemp * 50, BlackBishop_Position_Ytemp * 50, 0, 0);
-                            return 11;
-                        }
-                    }
-                }
-            }
-            return 0;
-        }
-
-        int Bishop_Two(int BlackBishop_Position_Ytemp, int BlackBishop_Position_Xtemp)
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    if (Math.Abs(BlackBishop_Position_Ytemp - i) == Math.Abs(BlackBishop_Position_Xtemp - j) && ChessBoard[i, j] == 1000)
-                    {
-                        for (int l = 1; l < Math.Abs(WhiteKing_Position_Y - BlackBishop_Position_Ytemp); l++)
-                        {
-                            if (WhiteKing_Position_Y > BlackBishop_Position_Ytemp && WhiteKing_Position_X < BlackBishop_Position_Xtemp && ChessBoard[BlackBishop_Position_Ytemp + l, BlackBishop_Position_Xtemp - l] != 0)
-                            {
-                                return 0;
-                            }
-                            if (WhiteKing_Position_Y > BlackBishop_Position_Ytemp && WhiteKing_Position_X > BlackBishop_Position_Xtemp && ChessBoard[BlackBishop_Position_Ytemp + l, BlackBishop_Position_Xtemp + l] != 0)
-                            {
-                                return 0;
-                            }
-                            if (WhiteKing_Position_Y < BlackBishop_Position_Ytemp && WhiteKing_Position_X < BlackBishop_Position_Xtemp && ChessBoard[BlackBishop_Position_Ytemp - l, BlackBishop_Position_Xtemp - l] != 0)
-                            {
-                                return 0;
-                            }
-                            if (WhiteKing_Position_Y < BlackBishop_Position_Ytemp && WhiteKing_Position_X > BlackBishop_Position_Xtemp && ChessBoard[BlackBishop_Position_Ytemp - l, BlackBishop_Position_Xtemp + l] != 0)
-                            {
-                                return 0;
-                            }
-                        }
-                        if (ChessBoard[BlackBishop_Position_Ytemp, BlackBishop_Position_Xtemp] >= 0 && ChessBoard[BlackBishop_Position_Ytemp, BlackBishop_Position_Xtemp] != 1000)
-                        {
-                            ChessBoard[BlackBishop_Two_Position_Y, BlackBishop_Two_Position_X] = 0;
-                            BlackBishop_Two_Position_Y = BlackBishop_Position_Ytemp;
-                            BlackBishop_Two_Position_X = BlackBishop_Position_Xtemp;
-                            ChessBoard[BlackBishop_Two_Position_Y, BlackBishop_Two_Position_X] = -33;
-                            BlackBishop_Two.Margin = new Thickness(BlackBishop_Position_Xtemp * 50, BlackBishop_Position_Ytemp * 50, 0, 0);
-                            return 11;
-                        }
-                    }
-                }
-            }
-            return 0;
-        }
-
         
-        int Knight(int BlackKnight_Position_Ytemp, int BlackKnight_Position_Xtemp)
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    if (((Math.Abs(BlackKnight_Position_Ytemp - i) == 2 && Math.Abs(BlackKnight_Position_Xtemp - j) == 1) || (Math.Abs(BlackKnight_Position_Ytemp - i) == 1 && Math.Abs(BlackKnight_Position_Xtemp - j) == 2)) && ChessBoard[i, j] == 1000)
-                    {
-                        if (ChessBoard[BlackKnight_Position_Ytemp, BlackKnight_Position_Xtemp] >= 0 && ChessBoard[BlackKnight_Position_Ytemp, BlackKnight_Position_Xtemp] != 1000)
-                        {
-                            ChessBoard[BlackKnight_Position_Y, BlackKnight_Position_X] = 0;
-                            BlackKnight_Position_X = BlackKnight_Position_Xtemp;
-                            BlackKnight_Position_Y = BlackKnight_Position_Ytemp;
-                            ChessBoard[BlackKnight_Position_Y, BlackKnight_Position_X] = -30;
-                            BlackKnight_One.Margin = new Thickness(BlackKnight_Position_Xtemp * 50, BlackKnight_Position_Ytemp * 50, 0, 0);
-
-                            return 11;
-                        }
-                    }
-                }
-            }
-            return 0;
-        }
-
-        int Knight_Two(int BlackKnight_Position_Ytemp, int BlackKnight_Position_Xtemp)
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    if (((Math.Abs(BlackKnight_Position_Ytemp - i) == 2 && Math.Abs(BlackKnight_Position_Xtemp - j) == 1) || (Math.Abs(BlackKnight_Position_Ytemp - i) == 1 && Math.Abs(BlackKnight_Position_Xtemp - j) == 2)) && ChessBoard[i, j] == 1000)
-                    {
-                        if (ChessBoard[BlackKnight_Position_Ytemp, BlackKnight_Position_Xtemp] >= 0 && ChessBoard[BlackKnight_Position_Ytemp, BlackKnight_Position_Xtemp] != 1000)
-                        {
-                            ChessBoard[BlackKnight_Two_Position_Y, BlackKnight_Two_Position_X] = 0;
-                            BlackKnight_Two_Position_X = BlackKnight_Position_Xtemp;
-                            BlackKnight_Two_Position_Y = BlackKnight_Position_Ytemp;
-                            ChessBoard[BlackKnight_Two_Position_Y, BlackKnight_Two_Position_X] = -30;
-                            BlackKnight_Two.Margin = new Thickness(BlackKnight_Position_Xtemp * 50, BlackKnight_Position_Ytemp * 50, 0, 0);
-
-                            return 11;
-                        }
-                    }
-                }
-            }
-            return 0;
-        }
-
-        void Second_Point()
-        {
-
-            BlackRook_Position_Ytemp = BlackRook_Position_Y;
-            BlackRook_Position_Xtemp = BlackRook_Position_X;
-            BlackRook_Two_Position_Ytemp = BlackRook_Two_Position_Y;
-            BlackRook_Two_Position_Xtemp = BlackRook_Two_Position_X;
-            BlackQueen_Position_Xtemp = BlackQueen_Position_X;
-            BlackQueen_Position_Ytemp = BlackQueen_Position_Y;
-            BlackBishop_Position_Ytemp = BlackBishop_Position_Y;
-            BlackBishop_Position_Xtemp = BlackBishop_Position_X;
-            BlackKnight_Position_Xtemp = BlackKnight_Position_X;
-            BlackKnight_Position_Ytemp = BlackKnight_Position_Y;
-            BlackKnight_Two_Position_Xtemp = BlackKnight_Two_Position_X;
-            BlackKnight_Two_Position_Ytemp = BlackKnight_Two_Position_Y;
-            BlackBishop_Two_Position_Ytemp = BlackBishop_Two_Position_Y;
-            BlackBishop_Two_Position_Xtemp = BlackBishop_Two_Position_X;
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    if ((j == BlackRook_Position_Xtemp || i == BlackRook_Position_Ytemp) && ChessBoard[i, j] >= 0)
-                    {
-                        Rook_V = false;
-                        if (j == BlackRook_Position_Xtemp)
-                        {
-                            for (int l = 1; l < Math.Abs(i - BlackRook_Position_Ytemp); l++)
-                            {
-                                if (i > BlackRook_Position_Ytemp && ChessBoard[BlackRook_Position_Ytemp + l, j] != 0)
-                                {
-                                    Rook_V = true;
-                                    break;
-                                }
-                                if (i < BlackRook_Position_Ytemp && ChessBoard[BlackRook_Position_Ytemp - l, j] != 0)
-                                {
-                                    Rook_V = true;
-                                    break;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            for (int l = 1; l < Math.Abs(j - BlackRook_Position_Xtemp); l++)
-                            {
-                                if (j > BlackRook_Position_Xtemp && ChessBoard[i, BlackRook_Position_Xtemp + l] != 0)
-                                {
-                                    Rook_V = true;
-                                    break;
-                                }
-                                if (j < BlackRook_Position_Xtemp && ChessBoard[i, BlackRook_Position_Xtemp - l] != 0)
-                                {
-                                    Rook_V = true;
-                                    break;
-                                }
-                            }
-                        }
-                        if (!Rook_V)
-                        {
-                            if (Rook(i, j) == 11)
-                            {
-
-                                return;
-                            }
-                        }
-                    }
-
-                    if ((j == BlackRook_Two_Position_Xtemp || i == BlackRook_Two_Position_Ytemp) && ChessBoard[i, j] >= 0)
-                    {
-                        Rook_V_second = false;
-                        if (j == BlackRook_Two_Position_Xtemp)
-                        {
-                            for (int l = 1; l < Math.Abs(i - BlackRook_Two_Position_Ytemp); l++)
-                            {
-                                if (i > BlackRook_Two_Position_Ytemp && ChessBoard[BlackRook_Two_Position_Ytemp + l, j] != 0)
-                                {
-                                    Rook_V_second = true;
-                                    break;
-                                }
-                                if (i < BlackRook_Two_Position_Ytemp && ChessBoard[BlackRook_Two_Position_Ytemp - l, j] != 0)
-                                {
-                                    Rook_V_second = true;
-                                    break;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            for (int l = 1; l < Math.Abs(j - BlackRook_Two_Position_Xtemp); l++)
-                            {
-                                if (j > BlackRook_Two_Position_Xtemp && ChessBoard[i, BlackRook_Two_Position_Xtemp + l] != 0)
-                                {
-                                    Rook_V_second = true;
-                                    break;
-                                }
-                                if (j < BlackRook_Two_Position_Xtemp && ChessBoard[i, BlackRook_Two_Position_Xtemp - l] != 0)
-                                {
-                                    Rook_V_second = true;
-                                    break;
-                                }
-                            }
-                        }
-                        if (!Rook_V_second)
-                        {
-                            if (Rook_Two(i, j) == 11)
-                            {
-
-                                return;
-                            }
-                        }
-                    }
-                    if (Math.Abs(BlackBishop_Position_Ytemp - i) == Math.Abs(BlackBishop_Position_Xtemp - j) && ChessBoard[i, j] >= 0)
-                    {
-                        Bishop_V = false;
-                        for (int l = 1; l < Math.Abs(i - BlackBishop_Position_Ytemp); l++)
-                        {
-                            if (i > BlackBishop_Position_Ytemp && j < BlackBishop_Position_Xtemp && ChessBoard[BlackBishop_Position_Ytemp + l, BlackBishop_Position_Xtemp - l] != 0)
-                            {
-                                Bishop_V = true;
-                            }
-                            if (i > BlackBishop_Position_Ytemp && j > BlackBishop_Position_Xtemp && ChessBoard[BlackBishop_Position_Ytemp + l, BlackBishop_Position_Xtemp + l] != 0)
-                            {
-                                Bishop_V = true;
-                            }
-                            if (i < BlackBishop_Position_Ytemp && j < BlackBishop_Position_Xtemp && ChessBoard[BlackBishop_Position_Ytemp - l, BlackBishop_Position_Xtemp - l] != 0)
-                            {
-                                Bishop_V = true;
-                            }
-                            if (i < BlackBishop_Position_Ytemp && j > BlackBishop_Position_Xtemp && ChessBoard[BlackBishop_Position_Ytemp - l, BlackBishop_Position_Xtemp + l] != 0)
-                            {
-                                Bishop_V = true;
-                            }
-                        }
-                        if (!Bishop_V)
-                        {
-                            if (Bishop(i, j) == 11)
-                            {
-
-                                return;
-                            }
-                        }
-                    }
-
-                    if (Math.Abs(BlackBishop_Two_Position_Ytemp - i) == Math.Abs(BlackBishop_Two_Position_Xtemp - j) && ChessBoard[i, j] >= 0)
-                    {
-                        Bishop_V_second = false;
-                        for (int l = 1; l < Math.Abs(i - BlackBishop_Two_Position_Ytemp); l++)
-                        {
-                            if (i > BlackBishop_Two_Position_Ytemp && j < BlackBishop_Two_Position_Xtemp && ChessBoard[BlackBishop_Two_Position_Ytemp + l, BlackBishop_Two_Position_Xtemp - l] != 0)
-                            {
-                                Bishop_V_second = true;
-                            }
-                            if (i > BlackBishop_Two_Position_Ytemp && j > BlackBishop_Two_Position_Xtemp && ChessBoard[BlackBishop_Two_Position_Ytemp + l, BlackBishop_Two_Position_Xtemp + l] != 0)
-                            {
-                                Bishop_V_second = true;
-                            }
-                            if (i < BlackBishop_Two_Position_Ytemp && j < BlackBishop_Two_Position_Xtemp && ChessBoard[BlackBishop_Two_Position_Ytemp - l, BlackBishop_Two_Position_Xtemp - l] != 0)
-                            {
-                                Bishop_V_second = true;
-                            }
-                            if (i < BlackBishop_Two_Position_Ytemp && j > BlackBishop_Two_Position_Xtemp && ChessBoard[BlackBishop_Two_Position_Ytemp - l, BlackBishop_Two_Position_Xtemp + l] != 0)
-                            {
-                                Bishop_V_second = true;
-                            }
-                        }
-                        if (!Bishop_V_second)
-                        {
-                            if (Bishop_Two(i, j) == 11)
-                            {
-
-                                return;
-                            }
-                        }
-                    }
-
-                    if (((Math.Abs(BlackKnight_Position_Ytemp - i) == 2 && Math.Abs(BlackKnight_Position_Xtemp - j) == 1) || (Math.Abs(BlackKnight_Position_Ytemp - i) == 1 && Math.Abs(BlackKnight_Position_Xtemp - j) == 2)) && ChessBoard[i, j] >= 0)
-                    {
-                        if (Knight(i, j) == 11)
-                        {
-
-                            return;
-                        }
-                    }
-                    if (((Math.Abs(BlackKnight_Two_Position_Ytemp - i) == 2 && Math.Abs(BlackKnight_Two_Position_Xtemp - j) == 1) || (Math.Abs(BlackKnight_Two_Position_Ytemp - i) == 1 && Math.Abs(BlackKnight_Two_Position_Xtemp - j) == 2)) && ChessBoard[i, j] >= 0)
-                    {
-                        if (Knight_Two(i, j) == 11)
-                        {
-
-                            return;
-                        }
-                    }
-                }
-            }
-
-        }
+  
 
         void Utel(int i, int j)
         {
@@ -870,252 +861,129 @@ namespace C_Sharp_Project
         {
             string im = "aaaaaaaaaaaaaaaa";
             BitmapImage bitmap1 = new BitmapImage(new Uri(im, UriKind.RelativeOrAbsolute));
-            if (i == BlackKnight_Position_Y && j == BlackKnight_Position_X)
+            if (i == Knight1.figure_y && j == Knight1.figure_x)
             {
                 BlackKnight_One.Source = bitmap1;
-                BlackKnight_Position_X = -100;
-                BlackKnight_Position_Y = -200;
+                Knight1.figure_x = -10000;
+                Knight1.figure_y = -200;
             }
-            else if (i == BlackKnight_Two_Position_Y && j == BlackKnight_Two_Position_X)
+            else if (i == Knight2.figure_y && j == Knight2.figure_x)
             {
                 BlackKnight_Two.Source = bitmap1;
-                BlackKnight_Two_Position_X = -100;
-                BlackKnight_Two_Position_Y = -200;
+                Knight2.figure_x = -10000;
+                Knight2.figure_x = -200;
             }
-            else if (i == BlackBishop_Position_Y && j == BlackBishop_Position_X)
+            else if (i == Bishop1.figure_y && j == Bishop1.figure_x)
             {
                 BlackBishop_One.Source = bitmap1;
-                BlackBishop_Position_X = -100;
-                BlackBishop_Position_Y = -200;
+                Bishop1.figure_x = -10000;
+                Bishop1.figure_y = -200;
             }
-            else if (i == BlackBishop_Two_Position_Y && j == BlackBishop_Two_Position_X)
+            else if (i == Bishop2.figure_y && j == Bishop2.figure_x)
             {
                 BlackBishop_Two.Source = bitmap1;
-                BlackBishop_Two_Position_X = -100;
-                BlackBishop_Two_Position_Y = -200;
+                Bishop2.figure_x = -10000;
+                Bishop2.figure_x = -200;
             }
-            else if (i == BlackQueen_Position_Y && j == BlackQueen_Position_X)
+            else if (i == Queen1.figure_y && j == Queen1.figure_x)
             {
                 BlackQueen.Source = bitmap1;
-                BlackQueen_Position_X = -100;
-                BlackQueen_Position_Y = -200;
+                Queen1.figure_x = -10000;
+                Queen1.figure_y = -200;
             }
-            else if (i == BlackRook_Position_Y && j == BlackRook_Position_X)
+            else if (i == Rook1.figure_y && j == Rook1.figure_x)
             {
                 BlackRook_One.Source = bitmap1;
-                BlackRook_Position_X = -100;
-                BlackRook_Position_Y = -200;
+                Rook1.figure_x = -10000;
+                Rook1.figure_y = -200;
             }
-            else if (i == BlackRook_Two_Position_Y && j == BlackRook_Two_Position_X)
+            else if (i == Rook2.figure_y && j == Rook2.figure_x)
             {
                 BlackRook_Two.Source = bitmap1;
-                BlackRook_Two_Position_X = -100;
-                BlackRook_Two_Position_Y = -200;
+                Rook2.figure_x = -10000;
+                Rook2.figure_y = -200;
             }
-            else if (i == BlackPawn_One_Position_Y && j == BlackPawn_One_Position_X)
+            else if (i == Pawn1.figure_y && j == Pawn1.figure_x)
             {
                 BlackPawn_One.Source = bitmap1;
-                BlackPawn_One_Position_X = -100;
-                BlackPawn_One_Position_Y = -200;
+                Pawn1.figure_x = -10000;
+                Pawn1.figure_y = -200;
             }
-            else if (i == BlackPawn_Two_Position_Y && j == BlackPawn_Two_Position_X)
+            else if (i == Pawn2.figure_y && j == Pawn2.figure_x)
             {
                 BlackPawn_Two.Source = bitmap1;
-                BlackPawn_Two_Position_X = -100;
-                BlackPawn_Two_Position_Y = -200;
+                Pawn2.figure_x = -10000;
+                Pawn2.figure_y = -200;
             }
-            else if (i == BlackPawn_Three_Position_Y && j == BlackPawn_Three_Position_X)
+            else if (i == Pawn3.figure_y && j == Pawn3.figure_x)
             {
                 BlackPawn_Three.Source = bitmap1;
-                BlackPawn_Three_Position_X = -100;
-                BlackPawn_Three_Position_Y = -200;
+                Pawn3.figure_x = -10000;
+                Pawn3.figure_y = -200;
             }
-            else if (i == BlackPawn_Four_Position_Y && j == BlackPawn_Four_Position_X)
+            else if (i == Pawn4.figure_y && j == Pawn4.figure_x)
             {
                 BlackPawn_Four.Source = bitmap1;
-                BlackPawn_Four_Position_X = -100;
-                BlackPawn_Four_Position_Y = -200;
+                Pawn4.figure_x = -10000;
+                Pawn4.figure_y = -200;
             }
-            else if (i == BlackPawn_Five_Position_Y && j == BlackPawn_Five_Position_X)
+            else if (i == Pawn5.figure_y && j == Pawn5.figure_x)
             {
                 BlackPawn_Five.Source = bitmap1;
-                BlackPawn_Five_Position_X = -100;
-                BlackPawn_Five_Position_Y = -200;
+                Pawn5.figure_x = -10000;
+                Pawn5.figure_y = -200;
             }
-            else if (i == BlackPawn_Six_Position_Y && j == BlackPawn_Six_Position_X)
+            else if (i == Pawn6.figure_y && j == Pawn6.figure_x)
             {
                 BlackPawn_Six.Source = bitmap1;
-                BlackPawn_Six_Position_X = -100;
-                BlackPawn_Six_Position_Y = -200;
+                Pawn6.figure_x = -10000;
+                Pawn6.figure_y = -200;
             }
-            else if (i == BlackPawn_Seven_Position_Y && j == BlackPawn_Seven_Position_X)
+            else if (i == Pawn7.figure_y && j == Pawn7.figure_x)
             {
                 BlackPawn_Seven.Source = bitmap1;
-                BlackPawn_Seven_Position_X = -100;
-                BlackPawn_Seven_Position_Y = -200;
+                Pawn7.figure_x = -10000;
+                Pawn7.figure_y = -200;
             }
-            else if (i == BlackPawn_Eight_Position_Y && j == BlackPawn_Eight_Position_X)
+            else if (i == Pawn8.figure_y && j == Pawn8.figure_x)
             {
                 BlackPawn_Eight.Source = bitmap1;
-                BlackPawn_Eight_Position_X = -100;
-                BlackPawn_Eight_Position_Y = -200;
+                Pawn8.figure_x = -10000;
+                Pawn8.figure_y = -200;
             }
-            else if (i == BlackKing_Position_Y && j == BlackKing_Position_X)
+            else if (i == King1.figure_y && j == King1.figure_x)
             {
                 BlackKing.Source = bitmap1;
-                BlackKing_Position_X = -100;
-                BlackKing_Position_Y = -200;
+                King1.figure_x = -10000;
+                King1.figure_y = -200;
             }
 
             return;
         }
 
 
-        void RRR(int i, int j, int BlackRook_Position_Xtemp, int BlackRook_Position_Ytemp)
-        {
-            Knight_V = false;
-            if (j == BlackRook_Position_Xtemp)
-            {
-                for (int l = 1; l < Math.Abs(i - BlackRook_Position_Ytemp); l++)
-                {
-                    if (i > BlackRook_Position_Ytemp && ChessBoard[BlackRook_Position_Ytemp + l, j] != 0)
-                    {
-                        Knight_V = true;
-                        break;
-                    }
-                    if (i < BlackRook_Position_Ytemp && ChessBoard[BlackRook_Position_Ytemp - l, j] != 0)
-                    {
-                        Knight_V = true;
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                for (int l = 1; l < Math.Abs(j - BlackRook_Position_Xtemp); l++)
-                {
-                    if (j > BlackRook_Position_Xtemp && ChessBoard[i, BlackRook_Position_Xtemp + l] != 0)
-                    {
-                        Knight_V = true;
-                        break;
-                    }
-                    if (j < BlackRook_Position_Xtemp && ChessBoard[i, BlackRook_Position_Xtemp - l] != 0)
-                    {
-                        Knight_V = true;
-                        break;
-                    }
-                }
-            }
-        }
+       
 
-        void Pawnn(int i, int j, ref int BlackPawn_One_Position_Y, ref int BlackPawn_One_Position_X, FrameworkElement ccc)
-        {
-            ChessBoard[BlackPawn_One_Position_Y, BlackPawn_One_Position_X] = 0;
-            BlackPawn_One_Position_X = j;
-            BlackPawn_One_Position_Y = i;
 
-            Utel(i, j);
-            ChessBoard[BlackPawn_One_Position_Y, BlackPawn_One_Position_X] = -10;
-            ccc.Margin = new Thickness(BlackPawn_One_Position_X * 50, BlackPawn_One_Position_Y * 50, 0, 0);
-            return;
-        }
+        
 
         void Pawnns(int i, int j, ref int amenamec)
         {
-            if (ChessBoard[i, j] > amenamec && ChessBoard[i, j] != 1000)
+            if (ChessBoard[i, j] > amenamec && ChessBoard[i, j] != 1000 )
             {
-                amenamec = ChessBoard[i, j];
+                if (ChessBoard[i, j] != 0)
+                {
+                    amenamec = ChessBoard[i, j];
+                } else if (ChessBoard[i, j] == 0 && ChessBoard[i + 1, j] == 0)
+                {
+                    amenamec = 0;
+                }
+               
+                
             }
             return;
         }
 
-        void Queeen(int i, int j)
-        {
-            Queen = false;
-            if (j == BlackQueen_Position_Xtemp)
-            {
-                for (int l = 1; l < Math.Abs(i - BlackQueen_Position_Ytemp); l++)
-                {
-                    if (i > BlackQueen_Position_Ytemp && ChessBoard[BlackQueen_Position_Ytemp + l, j] != 0)
-                    {
-                        Queen = true;
-                        break;
-                    }
-                    if (i < BlackQueen_Position_Ytemp && ChessBoard[BlackQueen_Position_Ytemp - l, j] != 0)
-                    {
-                        Queen = true;
-                        break;
-                    }
-                }
-            }
-            else if (Math.Abs(BlackQueen_Position_Ytemp - i) == Math.Abs(BlackQueen_Position_Xtemp - j))
-            {
-                for (int l = 1; l < Math.Abs(i - BlackQueen_Position_Ytemp); l++)
-                {
-                    if (i > BlackQueen_Position_Ytemp && j < BlackQueen_Position_Xtemp && ChessBoard[BlackQueen_Position_Ytemp + l, BlackQueen_Position_Xtemp - l] != 0)
-                    {
-                        Queen = true;
-                    }
-                    if (i > BlackQueen_Position_Ytemp && j > BlackQueen_Position_Xtemp && ChessBoard[BlackQueen_Position_Ytemp + l, BlackQueen_Position_Xtemp + l] != 0)
-                    {
-                        Queen = true;
-                    }
-                    if (i < BlackQueen_Position_Ytemp && j < BlackQueen_Position_Xtemp && ChessBoard[BlackQueen_Position_Ytemp - l, BlackQueen_Position_Xtemp - l] != 0)
-                    {
-                        Queen = true;
-                    }
-                    if (i < BlackQueen_Position_Ytemp && j > BlackQueen_Position_Xtemp && ChessBoard[BlackQueen_Position_Ytemp - l, BlackQueen_Position_Xtemp + l] != 0)
-                    {
-                        Queen = true;
-                    }
-                }
-            }
-            else
-            {
-                for (int l = 1; l < Math.Abs(j - BlackQueen_Position_Xtemp); l++)
-                {
-                    if (j > BlackQueen_Position_Xtemp && ChessBoard[i, BlackQueen_Position_Xtemp + l] != 0)
-                    {
-                        Queen = true;
-                        break;
-                    }
-                    if (j < BlackQueen_Position_Xtemp && ChessBoard[i, BlackQueen_Position_Xtemp - l] != 0)
-                    {
-                        Queen = true;
-                        break;
-                    }
-                }
-            }
-
-            return;
-        }
-
-
-        void Bishopp(int i, int j, int BlackBishop_Position_Ytemp, int BlackBishop_Position_Xtemp)
-        {
-            Bishop_V = false;
-            for (int l = 1; l < Math.Abs(i - BlackBishop_Position_Ytemp); l++)
-            {
-                if (i > BlackBishop_Position_Ytemp && j < BlackBishop_Position_Xtemp && ChessBoard[BlackBishop_Position_Ytemp + l, BlackBishop_Position_Xtemp - l] != 0)
-                {
-                    Bishop_V = true;
-                }
-                if (i > BlackBishop_Position_Ytemp && j > BlackBishop_Position_Xtemp && ChessBoard[BlackBishop_Position_Ytemp + l, BlackBishop_Position_Xtemp + l] != 0)
-                {
-                    Bishop_V = true;
-                }
-                if (i < BlackBishop_Position_Ytemp && j < BlackBishop_Position_Xtemp && ChessBoard[BlackBishop_Position_Ytemp - l, BlackBishop_Position_Xtemp - l] != 0)
-                {
-                    Bishop_V = true;
-                }
-                if (i < BlackBishop_Position_Ytemp && j > BlackBishop_Position_Xtemp && ChessBoard[BlackBishop_Position_Ytemp - l, BlackBishop_Position_Xtemp + l] != 0)
-                {
-                    Bishop_V = true;
-                }
-            }
-            return;
-        
-        }
         int amenamec = -1;
 
         void choose()
@@ -1125,50 +993,50 @@ namespace C_Sharp_Project
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    if ((((i - BlackPawn_One_Position_Ytemp) == 1 && (BlackPawn_One_Position_Xtemp - j) == 1) || ((i - BlackPawn_One_Position_Ytemp) == 1 && (j - BlackPawn_One_Position_Xtemp) == 1)) && ChessBoard[i, j] > 0 && ChessBoard[BlackPawn_One_Position_Ytemp, BlackPawn_One_Position_Xtemp] == -10)
+                    if ((((i - Pawn1.figure_ytemp) == 1 && (Pawn1.figure_xtemp - j) == 1) || ((i - Pawn1.figure_ytemp) == 1 && (j - Pawn1.figure_xtemp) == 1)) && ChessBoard[i, j] >= 0 && ChessBoard[Pawn1.figure_ytemp, Pawn1.figure_xtemp] == -10)
                     {
                         Pawnns(i, j, ref amenamec);
                         
                     }
-                    if ((((i - BlackPawn_Two_Position_Ytemp) == 1 && (BlackPawn_Two_Position_Xtemp - j) == 1) || ((i - BlackPawn_Two_Position_Ytemp) == 1 && (j - BlackPawn_Two_Position_Xtemp) == 1)) && ChessBoard[i, j] > 0 && ChessBoard[BlackPawn_Two_Position_Ytemp, BlackPawn_Two_Position_Xtemp] == -10)
+                    if ((((i - Pawn2.figure_ytemp) == 1 && (Pawn2.figure_xtemp - j) == 1) || ((i - Pawn2.figure_ytemp) == 1 && (j - Pawn2.figure_xtemp) == 1)) && ChessBoard[i, j] >= 0 && ChessBoard[Pawn2.figure_ytemp, Pawn2.figure_xtemp] == -10)
                     {
                         Pawnns(i, j, ref amenamec);
-                        
+
                     }
-                    if ((((i - BlackPawn_Three_Position_Ytemp) == 1 && (BlackPawn_Three_Position_Xtemp - j) == 1) || ((i - BlackPawn_Three_Position_Ytemp) == 1 && (j - BlackPawn_Three_Position_Xtemp) == 1)) && ChessBoard[i, j] > 0 && ChessBoard[BlackPawn_Three_Position_Ytemp, BlackPawn_Three_Position_Xtemp] == -10)
+                    if ((((i - Pawn3.figure_ytemp) == 1 && (Pawn3.figure_xtemp - j) == 1) || ((i - Pawn3.figure_ytemp) == 1 && (j - Pawn3.figure_xtemp) == 1)) && ChessBoard[i, j] >= 0 && ChessBoard[Pawn3.figure_ytemp, Pawn3.figure_xtemp] == -10)
                     {
                         Pawnns(i, j, ref amenamec);
-                        
+
                     }
-                    if ((((i - BlackPawn_Four_Position_Ytemp) == 1 && (BlackPawn_Four_Position_Xtemp - j) == 1) || ((i - BlackPawn_Four_Position_Ytemp) == 1 && (j - BlackPawn_Four_Position_Xtemp) == 1)) && ChessBoard[i, j] > 0 && ChessBoard[BlackPawn_Four_Position_Ytemp, BlackPawn_Four_Position_Xtemp] == -10)
+                    if ((((i - Pawn4.figure_ytemp) == 1 && (Pawn4.figure_xtemp - j) == 1) || ((i - Pawn4.figure_ytemp) == 1 && (j - Pawn4.figure_xtemp) == 1)) && ChessBoard[i, j] >= 0 && ChessBoard[Pawn4.figure_ytemp, Pawn4.figure_xtemp] == -10)
                     {
                         Pawnns(i, j, ref amenamec);
-                        
+
                     }
-                    if ((((i - BlackPawn_Five_Position_Ytemp) == 1 && (BlackPawn_Five_Position_Xtemp - j) == 1) || ((i - BlackPawn_Five_Position_Ytemp) == 1 && (j - BlackPawn_Five_Position_Xtemp) == 1)) && ChessBoard[i, j] > 0 && ChessBoard[BlackPawn_Five_Position_Ytemp, BlackPawn_Five_Position_Xtemp] == -10)
+                    if ((((i - Pawn5.figure_ytemp) == 1 && (Pawn5.figure_xtemp - j) == 1) || ((i - Pawn5.figure_ytemp) == 1 && (j - Pawn5.figure_xtemp) == 1)) && ChessBoard[i, j] >= 0 && ChessBoard[Pawn5.figure_ytemp, Pawn5.figure_xtemp] == -10)
                     {
                         Pawnns(i, j, ref amenamec);
-                        
+
                     }
-                    if ((((i - BlackPawn_Six_Position_Ytemp) == 1 && (BlackPawn_Six_Position_Xtemp - j) == 1) || ((i - BlackPawn_Six_Position_Ytemp) == 1 && (j - BlackPawn_Six_Position_Xtemp) == 1)) && ChessBoard[i, j] > 0 && ChessBoard[BlackPawn_Six_Position_Ytemp, BlackPawn_Six_Position_Xtemp] == -10)
+                    if ((((i - Pawn6.figure_ytemp) == 1 && (Pawn6.figure_xtemp - j) == 1) || ((i - Pawn6.figure_ytemp) == 1 && (j - Pawn6.figure_xtemp) == 1)) && ChessBoard[i, j] >= 0 && ChessBoard[Pawn6.figure_ytemp, Pawn6.figure_xtemp] == -10)
                     {
                         Pawnns(i, j, ref amenamec);
-                        
+
                     }
-                    if ((((i - BlackPawn_Seven_Position_Ytemp) == 1 && (BlackPawn_Seven_Position_Xtemp - j) == 1) || ((i - BlackPawn_Seven_Position_Ytemp) == 1 && (j - BlackPawn_Seven_Position_Xtemp) == 1)) && ChessBoard[i, j] > 0 && ChessBoard[BlackPawn_Seven_Position_Ytemp, BlackPawn_Seven_Position_Xtemp] == -10)
+                    if ((((i - Pawn7.figure_ytemp) == 1 && (Pawn7.figure_xtemp - j) == 1) || ((i - Pawn7.figure_ytemp) == 1 && (j - Pawn7.figure_xtemp) == 1)) && ChessBoard[i, j] >= 0 && ChessBoard[Pawn7.figure_ytemp, Pawn7.figure_xtemp] == -10)
                     {
                         Pawnns(i, j, ref amenamec);
-                        
+
                     }
-                    if ((((i - BlackPawn_Eight_Position_Ytemp) == 1 && (BlackPawn_Eight_Position_Xtemp - j) == 1) || ((i - BlackPawn_Eight_Position_Ytemp) == 1 && (j - BlackPawn_Eight_Position_Xtemp) == 1)) && ChessBoard[i, j] > 0 && ChessBoard[BlackPawn_Eight_Position_Ytemp, BlackPawn_Eight_Position_Xtemp] == -10)
+                    if ((((i - Pawn8.figure_ytemp) == 1 && (Pawn8.figure_xtemp - j) == 1) || ((i - Pawn8.figure_ytemp) == 1 && (j - Pawn8.figure_xtemp) == 1)) && ChessBoard[i, j] >= 0 && ChessBoard[Pawn8.figure_ytemp, Pawn8.figure_xtemp] == -10)
                     {
                         Pawnns(i, j, ref amenamec);
-                        
+
                     }
-                    if ((j == BlackQueen_Position_Xtemp || i == BlackQueen_Position_Ytemp || Math.Abs(BlackQueen_Position_Ytemp - i) == Math.Abs(BlackQueen_Position_Xtemp - j)) && ChessBoard[i, j] > 0)
+                    if ((j == Queen1.figure_xtemp || i == Queen1.figure_ytemp || Math.Abs(Queen1.figure_ytemp - i) == Math.Abs(Queen1.figure_xtemp - j)) && ChessBoard[i, j] >= 0)
                     {
-                        Queeen(i, j);
-                        if (!Queen)
+                        Queen1.Queen_Check(i, j);
+                        if (!Queen1.figure)
                         {
 
                             if (ChessBoard[i, j] > amenamec)
@@ -1180,10 +1048,10 @@ namespace C_Sharp_Project
                         }
 
                     }
-                    if ((j == BlackRook_Position_Xtemp || i == BlackRook_Position_Ytemp) && ChessBoard[i, j] > 0)
+                    if ((j == Rook1.figure_xtemp || i == Rook1.figure_ytemp) && ChessBoard[i, j] >= 0)
                     {
-                        RRR(i, j, BlackRook_Position_Xtemp, BlackRook_Position_Ytemp);
-                        if (!Knight_V)
+                        Rook1.Rook_Check(i, j);
+                        if (!Rook1.figure)
                         {
 
                             if (ChessBoard[i, j] > amenamec)
@@ -1195,10 +1063,10 @@ namespace C_Sharp_Project
 
                     }
 
-                    if ((j == BlackRook_Two_Position_Xtemp || i == BlackRook_Two_Position_Ytemp) && ChessBoard[i, j] > 0)
+                    if ((j == Rook2.figure_xtemp || i == Rook2.figure_ytemp) && ChessBoard[i, j] >= 0)
                     {
-                        RRR(i, j, BlackRook_Two_Position_Xtemp, BlackRook_Two_Position_Ytemp);
-                        if (!Knight_V)
+                        Rook2.Rook_Check(i, j);
+                        if (!Rook2.figure)
                         {
 
                             if (ChessBoard[i, j] > amenamec)
@@ -1210,10 +1078,10 @@ namespace C_Sharp_Project
                         }
 
                     }
-                    if (Math.Abs(BlackBishop_Position_Ytemp - i) == Math.Abs(BlackBishop_Position_Xtemp - j) && ChessBoard[i, j] > 0)
+                    if (Math.Abs(Bishop1.figure_ytemp - i) == Math.Abs(Bishop1.figure_xtemp - j) && ChessBoard[i, j] >= 0)
                     {
-                        Bishopp(i, j, BlackBishop_Position_Ytemp, BlackBishop_Position_Xtemp);
-                        if (!Bishop_V)
+                        Bishop1.Bishop_Check(i, j);
+                        if (!Bishop1.figure)
                         {
                             if (ChessBoard[i, j] > amenamec)
                             {
@@ -1223,10 +1091,10 @@ namespace C_Sharp_Project
                         }
                     }
 
-                    if (Math.Abs(BlackBishop_Two_Position_Ytemp - i) == Math.Abs(BlackBishop_Two_Position_Xtemp - j) && ChessBoard[i, j] > 0)
+                    if (Math.Abs(Bishop2.figure_ytemp - i) == Math.Abs(Bishop2.figure_xtemp - j) && ChessBoard[i, j] >= 0)
                     {
-                        Bishopp(i, j, BlackBishop_Two_Position_Ytemp, BlackBishop_Two_Position_Xtemp);
-                        if (!Bishop_V)
+                        Bishop2.Bishop_Check(i, j);
+                        if (!Bishop2.figure)
                         {
                             if (ChessBoard[i, j] > amenamec)
                             {
@@ -1238,7 +1106,7 @@ namespace C_Sharp_Project
 
 
 
-                    if (((Math.Abs(BlackKnight_Position_Ytemp - i) == 2 && Math.Abs(BlackKnight_Position_Xtemp - j) == 1) || (Math.Abs(BlackKnight_Position_Ytemp - i) == 1 && Math.Abs(BlackKnight_Position_Xtemp - j) == 2)) && ChessBoard[i, j] > 0)
+                    if (((Math.Abs(Knight1.figure_ytemp - i) == 2 && Math.Abs(Knight1.figure_xtemp - j) == 1) || (Math.Abs(Knight1.figure_ytemp - i) == 1 && Math.Abs(Knight1.figure_xtemp - j) == 2)) && ChessBoard[i, j] >= 0)
                     {
                         if (ChessBoard[i, j] > amenamec)
                         {
@@ -1246,7 +1114,7 @@ namespace C_Sharp_Project
                         }
                         
                     }
-                    if (((Math.Abs(BlackKnight_Two_Position_Ytemp - i) == 2 && Math.Abs(BlackKnight_Two_Position_Xtemp - j) == 1) || (Math.Abs(BlackKnight_Two_Position_Ytemp - i) == 1 && Math.Abs(BlackKnight_Two_Position_Xtemp - j) == 2)) && ChessBoard[i, j] > 0)
+                    if (((Math.Abs(Knight2.figure_ytemp - i) == 2 && Math.Abs(Knight2.figure_xtemp - j) == 1) || (Math.Abs(Knight2.figure_ytemp - i) == 1 && Math.Abs(Knight2.figure_xtemp - j) == 2)) && ChessBoard[i, j] >= 0)
                     {
                         if (ChessBoard[i, j] > amenamec)
                         {
@@ -1254,7 +1122,7 @@ namespace C_Sharp_Project
                         }
                         
                     }
-                    if (((Math.Abs(BlackKing_Position_Ytemp - i) == 1 && Math.Abs(BlackKing_Position_Xtemp - j) == 0) || (Math.Abs(BlackKing_Position_Ytemp - i) == 0 && Math.Abs(BlackKing_Position_Xtemp - j) == 1) || (Math.Abs(BlackKing_Position_Ytemp - i) == 1 && Math.Abs(BlackKing_Position_Xtemp - j) == 1)) && ChessBoard[i, j] > 0)
+                    if (((Math.Abs(King1.figure_ytemp - i) == 1 && Math.Abs(King1.figure_xtemp - j) == 0) || (Math.Abs(King1.figure_ytemp - i) == 0 && Math.Abs(King1.figure_xtemp - j) == 1) || (Math.Abs(King1.figure_ytemp - i) == 1 && Math.Abs(King1.figure_xtemp - j) == 1)) && ChessBoard[i, j] >= 0)
                     {
                         if (ChessBoard[i, j] > amenamec)
                         {
@@ -1267,227 +1135,292 @@ namespace C_Sharp_Project
 
             return;
         }
-
-
-
-
+        
         void First_Point()
         {
-            
-            BlackRook_Position_Ytemp = BlackRook_Position_Y;
-            BlackRook_Position_Xtemp = BlackRook_Position_X;
-            BlackRook_Two_Position_Ytemp = BlackRook_Two_Position_Y;
-            BlackRook_Two_Position_Xtemp = BlackRook_Two_Position_X;
-            BlackBishop_Position_Ytemp = BlackBishop_Position_Y;
-            BlackBishop_Position_Xtemp = BlackBishop_Position_X;
-            BlackKnight_Position_Xtemp = BlackKnight_Position_X;
-            BlackKnight_Position_Ytemp = BlackKnight_Position_Y;
-            BlackKnight_Two_Position_Xtemp = BlackKnight_Two_Position_X;
-            BlackKnight_Two_Position_Ytemp = BlackKnight_Two_Position_Y;
-            BlackBishop_Two_Position_Ytemp = BlackBishop_Two_Position_Y;
-            BlackBishop_Two_Position_Xtemp = BlackBishop_Two_Position_X;
-            BlackQueen_Position_Ytemp = BlackQueen_Position_Y;
-            BlackQueen_Position_Xtemp = BlackQueen_Position_X;
-            BlackPawn_One_Position_Ytemp = BlackPawn_One_Position_Y;
-            BlackPawn_One_Position_Xtemp = BlackPawn_One_Position_X;
-            BlackPawn_Two_Position_Ytemp = BlackPawn_Two_Position_Y;
-            BlackPawn_Two_Position_Xtemp = BlackPawn_Two_Position_X;
-            BlackPawn_Three_Position_Ytemp = BlackPawn_Three_Position_Y;
-            BlackPawn_Three_Position_Xtemp = BlackPawn_Three_Position_X;
-            BlackPawn_Four_Position_Ytemp = BlackPawn_Four_Position_Y;
-            BlackPawn_Four_Position_Xtemp = BlackPawn_Four_Position_X;
-            BlackPawn_Five_Position_Ytemp = BlackPawn_Five_Position_Y;
-            BlackPawn_Five_Position_Xtemp = BlackPawn_Five_Position_X;
-            BlackPawn_Six_Position_Ytemp = BlackPawn_Six_Position_Y;
-            BlackPawn_Six_Position_Xtemp = BlackPawn_Six_Position_X;
-            BlackPawn_Seven_Position_Ytemp = BlackPawn_Seven_Position_Y;
-            BlackPawn_Seven_Position_Xtemp = BlackPawn_Seven_Position_X;
-            BlackPawn_Eight_Position_Ytemp = BlackPawn_Eight_Position_Y;
-            BlackPawn_Eight_Position_Xtemp = BlackPawn_Eight_Position_X;
-            BlackKing_Position_Xtemp = BlackKing_Position_X;
-            BlackKing_Position_Ytemp = BlackKing_Position_Y;
+
+            Rook1.figure_xtemp = Rook1.figure_x;
+            Rook1.figure_ytemp = Rook1.figure_y;
+
+            Rook2.figure_xtemp = Rook2.figure_x;
+            Rook2.figure_ytemp = Rook2.figure_y;
+
+            Bishop1.figure_xtemp = Bishop1.figure_x;
+            Bishop1.figure_ytemp = Bishop1.figure_y;
+
+            Bishop2.figure_xtemp = Bishop2.figure_x;
+            Bishop2.figure_ytemp = Bishop2.figure_y;
+
+            Knight1.figure_xtemp = Knight1.figure_x;
+            Knight1.figure_ytemp = Knight1.figure_y;
+
+            Knight2.figure_xtemp = Knight2.figure_x;
+            Knight2.figure_ytemp = Knight2.figure_y;
+
+            Queen1.figure_xtemp = Queen1.figure_x;
+            Queen1.figure_ytemp = Queen1.figure_y;
+
+            Pawn1.figure_xtemp = Pawn1.figure_x;
+            Pawn1.figure_ytemp = Pawn1.figure_y;
+
+            Pawn2.figure_xtemp = Pawn2.figure_x;
+            Pawn2.figure_ytemp = Pawn2.figure_y;
+
+            Pawn3.figure_xtemp = Pawn3.figure_x;
+            Pawn3.figure_ytemp = Pawn3.figure_y;
+
+            Pawn4.figure_xtemp = Pawn4.figure_x;
+            Pawn4.figure_ytemp = Pawn4.figure_y;
+
+            Pawn5.figure_xtemp = Pawn5.figure_x;
+            Pawn5.figure_ytemp = Pawn5.figure_y;
+
+            Pawn6.figure_xtemp = Pawn6.figure_x;
+            Pawn6.figure_ytemp = Pawn6.figure_y;
+
+            Pawn7.figure_xtemp = Pawn7.figure_x;
+            Pawn7.figure_ytemp = Pawn7.figure_y;
+
+            Pawn8.figure_xtemp = Pawn8.figure_x;
+            Pawn8.figure_ytemp = Pawn8.figure_y;
+
+            King1.figure_xtemp = King1.figure_x;
+            King1.figure_ytemp = King1.figure_y;
+
+
             choose();
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    if ((((i - BlackPawn_One_Position_Ytemp) == 1 && (BlackPawn_One_Position_Xtemp - j) == 1) || ((i - BlackPawn_One_Position_Ytemp) == 1 && (j - BlackPawn_One_Position_Xtemp) == 1)) && ChessBoard[i, j] == amenamec && ChessBoard[BlackPawn_One_Position_Ytemp, BlackPawn_One_Position_Xtemp] == -10)
+                    Pawn1.target_x = j;
+                    Pawn1.target_y = i;
+                    Pawn2.target_x = j;
+                    Pawn2.target_y = i;
+                    Pawn3.target_x = j;
+                    Pawn3.target_y = i;
+                    Pawn4.target_x = j;
+                    Pawn4.target_y = i;
+                    Pawn5.target_x = j;
+                    Pawn5.target_y = i;
+                    Pawn6.target_x = j;
+                    Pawn6.target_y = i;
+                    Pawn7.target_x = j;
+                    Pawn7.target_y = i;
+                    Pawn8.target_x = j;
+                    Pawn8.target_y = i;
+                    Bishop1.target_x = j;
+                    Bishop1.target_y = i;
+                    Bishop2.target_x = j;
+                    Bishop2.target_y = i;
+                    Knight1.target_x = j;
+                    Knight1.target_y = i;
+                    Knight2.target_x = j;
+                    Knight2.target_y = i;
+                    Rook1.target_x = j;
+                    Rook1.target_y = i;
+                    Rook2.target_x = j;
+                    Rook2.target_y = i;
+                    King1.target_x = j;
+                    King1.target_y = i;
+                    Queen1.target_y = i;
+                    Queen1.target_x = j;
+
+
+
+                    if ((((i - Pawn1.figure_ytemp) == 1 && (Pawn1.figure_xtemp - j) == 1) || ((i - Pawn1.figure_ytemp) == 1 && (j - Pawn1.figure_xtemp) == 1)) && ChessBoard[i, j] == amenamec && ChessBoard[Pawn1.figure_ytemp, Pawn1.figure_xtemp] == -10)
                     {
-                        Pawnn(i, j, ref BlackPawn_One_Position_Y, ref BlackPawn_One_Position_X, BlackPawn_One);
-                        return;
-                    }
-                    if ((((i - BlackPawn_Two_Position_Ytemp) == 1 && (BlackPawn_Two_Position_Xtemp - j) == 1) || ((i - BlackPawn_Two_Position_Ytemp) == 1 && (j - BlackPawn_Two_Position_Xtemp) == 1)) && ChessBoard[i, j] == amenamec && ChessBoard[BlackPawn_Two_Position_Ytemp, BlackPawn_Two_Position_Xtemp] == -10)
-                    {
-                        Pawnn(i, j, ref BlackPawn_Two_Position_Y, ref BlackPawn_Two_Position_X, BlackPawn_Two);
-                        return;
-                    }
-                    if ((((i - BlackPawn_Three_Position_Ytemp) == 1 && (BlackPawn_Three_Position_Xtemp - j) == 1) || ((i - BlackPawn_Three_Position_Ytemp) == 1 && (j - BlackPawn_Three_Position_Xtemp) == 1)) && ChessBoard[i, j] == amenamec && ChessBoard[BlackPawn_Three_Position_Ytemp, BlackPawn_Three_Position_Xtemp] == -10)
-                    {
-                        Pawnn(i, j, ref BlackPawn_Three_Position_Y, ref BlackPawn_Three_Position_X, BlackPawn_Three);
-                        return;
-                    }
-                    if ((((i - BlackPawn_Four_Position_Ytemp) == 1 && (BlackPawn_Four_Position_Xtemp - j) == 1) || ((i - BlackPawn_Four_Position_Ytemp) == 1 && (j - BlackPawn_Four_Position_Xtemp) == 1)) && ChessBoard[i, j] == amenamec && ChessBoard[BlackPawn_Four_Position_Ytemp, BlackPawn_Four_Position_Xtemp] == -10)
-                    {
-                        Pawnn(i, j, ref BlackPawn_Four_Position_Y, ref BlackPawn_Four_Position_X, BlackPawn_Four);
-                        return;
-                    }
-                    if ((((i - BlackPawn_Five_Position_Ytemp) == 1 && (BlackPawn_Five_Position_Xtemp - j) == 1) || ((i - BlackPawn_Five_Position_Ytemp) == 1 && (j - BlackPawn_Five_Position_Xtemp) == 1)) && ChessBoard[i, j] == amenamec && ChessBoard[BlackPawn_Five_Position_Ytemp, BlackPawn_Five_Position_Xtemp] == -10)
-                    {
-                        Pawnn(i, j, ref BlackPawn_Five_Position_Y, ref BlackPawn_Five_Position_X, BlackPawn_Five);
-                        return;
-                    }
-                    if ((((i - BlackPawn_Six_Position_Ytemp) == 1 && (BlackPawn_Six_Position_Xtemp - j) == 1) || ((i - BlackPawn_Six_Position_Ytemp) == 1 && (j - BlackPawn_Six_Position_Xtemp) == 1)) && ChessBoard[i, j] == amenamec && ChessBoard[BlackPawn_Six_Position_Ytemp, BlackPawn_Six_Position_Xtemp] == -10)
-                    {
-                        Pawnn(i, j, ref BlackPawn_Six_Position_Y, ref BlackPawn_Six_Position_X, BlackPawn_Six);
-                        return;
-                    }
-                    if ((((i - BlackPawn_Seven_Position_Ytemp) == 1 && (BlackPawn_Seven_Position_Xtemp - j) == 1) || ((i - BlackPawn_Seven_Position_Ytemp) == 1 && (j - BlackPawn_Seven_Position_Xtemp) == 1)) && ChessBoard[i, j] == amenamec && ChessBoard[BlackPawn_Seven_Position_Ytemp, BlackPawn_Seven_Position_Xtemp] == -10)
-                    {
-                        Pawnn(i, j, ref BlackPawn_Seven_Position_Y, ref BlackPawn_Seven_Position_X, BlackPawn_Seven);
-                        return;
-                    }
-                    if ((((i - BlackPawn_Eight_Position_Ytemp) == 1 && (BlackPawn_Eight_Position_Xtemp - j) == 1) || ((i - BlackPawn_Eight_Position_Ytemp) == 1 && (j - BlackPawn_Eight_Position_Xtemp) == 1)) && ChessBoard[i, j] == amenamec && ChessBoard[BlackPawn_Eight_Position_Ytemp, BlackPawn_Eight_Position_Xtemp] == -10)
-                    {
-                        Pawnn(i, j, ref BlackPawn_Eight_Position_Y, ref BlackPawn_Eight_Position_X, BlackPawn_Eight);
-                        return;
-                    }
-                    if ((j == BlackQueen_Position_Xtemp || i == BlackQueen_Position_Ytemp || Math.Abs(BlackQueen_Position_Ytemp - i) == Math.Abs(BlackQueen_Position_Xtemp - j)) && ChessBoard[i, j] == amenamec)
-                    {
-                        Queeen(i, j);
-                        if (!Queen)
+                        Pawn1.Pawn_Move(amenamec);
+                        if (!Pawn1.figure)
                         {
-
-                            ChessBoard[BlackQueen_Position_Y, BlackQueen_Position_X] = 0;
-                            BlackQueen_Position_Y = i;
-                            BlackQueen_Position_X = j;
-                            
                             Utel(i, j);
-                            ChessBoard[BlackQueen_Position_Y, BlackQueen_Position_X] = -90;
-                            BlackQueen.Margin = new Thickness(BlackQueen_Position_X * 50, BlackQueen_Position_Y * 50, 0, 0);
-                            return;
-
-                        }
-
-                    }
-                    if ((j == BlackRook_Position_Xtemp || i == BlackRook_Position_Ytemp) && ChessBoard[i, j] == amenamec)
-                    {
-                        RRR(i, j, BlackRook_Position_Xtemp, BlackRook_Position_Ytemp);
-                        if (!Knight_V)
-                        {
-
-                            ChessBoard[BlackRook_Position_Y, BlackRook_Position_X] = 0;
-                            BlackRook_Position_Y = i;
-                            BlackRook_Position_X = j;
-                            
-                            Utel(i, j);
-                            ChessBoard[BlackRook_Position_Y, BlackRook_Position_X] = -50;
-                            BlackRook_One.Margin = new Thickness(BlackRook_Position_X * 50, BlackRook_Position_Y * 50, 0, 0);
-                            return;
-
-                        }
-
-                    }
-
-                    if ((j == BlackRook_Two_Position_Xtemp || i == BlackRook_Two_Position_Ytemp) && ChessBoard[i, j] == amenamec)
-                    {
-                        RRR(i, j, BlackRook_Two_Position_Xtemp, BlackRook_Two_Position_Ytemp);
-                        if (!Knight_V)
-                        {
-
-                            ChessBoard[BlackRook_Two_Position_Y, BlackRook_Two_Position_X] = 0;
-                            BlackRook_Two_Position_Y = i;
-                            BlackRook_Two_Position_X = j;
-                           
-                            Utel(i, j);
-                            ChessBoard[BlackRook_Two_Position_Y, BlackRook_Two_Position_X] = -50;
-                            BlackRook_Two.Margin = new Thickness(BlackRook_Two_Position_X * 50, BlackRook_Two_Position_Y * 50, 0, 0);
-                            return;
-
-                        }
-
-                    }
-                    if (Math.Abs(BlackBishop_Position_Ytemp - i) == Math.Abs(BlackBishop_Position_Xtemp - j) && ChessBoard[i, j] == amenamec)
-                    {
-                        Bishopp(i, j, BlackBishop_Position_Ytemp, BlackBishop_Position_Xtemp);
-                        if (!Bishop_V)
-                        {
-                            ChessBoard[BlackBishop_Position_Y, BlackBishop_Position_X] = 0;
-                            BlackBishop_Position_Y =i;
-                            BlackBishop_Position_X = j;
-                            
-                            Utel(i, j);
-                            ChessBoard[BlackBishop_Position_Y, BlackBishop_Position_X] = -33;
-                            BlackBishop_One.Margin = new Thickness(BlackBishop_Position_X * 50, BlackBishop_Position_Y * 50, 0, 0);
                             return;
                         }
-                    }
-
-                    if (Math.Abs(BlackBishop_Two_Position_Ytemp - i) == Math.Abs(BlackBishop_Two_Position_Xtemp - j) && ChessBoard[i, j] == amenamec)
-                    {
-                        Bishopp(i, j, BlackBishop_Two_Position_Ytemp, BlackBishop_Two_Position_Xtemp);
-                        if (!Bishop_V)
-                        {
-                            ChessBoard[BlackBishop_Two_Position_Y, BlackBishop_Two_Position_X] = 0;
-                            BlackBishop_Two_Position_Y = i;
-                            BlackBishop_Two_Position_X = j;
-                            
-                            Utel(i, j);
-                            ChessBoard[BlackBishop_Two_Position_Y, BlackBishop_Two_Position_X] = -33;
-                            BlackBishop_Two.Margin = new Thickness(BlackBishop_Two_Position_X * 50, BlackBishop_Two_Position_Y * 50, 0, 0);
-                            return;
-                        }
-                    }
-
-       
-
-                    if (((Math.Abs(BlackKnight_Position_Ytemp - i) == 2 && Math.Abs(BlackKnight_Position_Xtemp - j) == 1) || (Math.Abs(BlackKnight_Position_Ytemp - i) == 1 && Math.Abs(BlackKnight_Position_Xtemp - j) == 2)) && ChessBoard[i, j] == amenamec)
-                    {
-                        ChessBoard[BlackKnight_Position_Y, BlackKnight_Position_X] = 0;
-                        BlackKnight_Position_X = j;
-                        BlackKnight_Position_Y = i;
-                        
-                        Utel(i, j);
-                        ChessBoard[BlackKnight_Position_Y, BlackKnight_Position_X] = -30;
-                        BlackKnight_One.Margin = new Thickness(BlackKnight_Position_X * 50, BlackKnight_Position_Y * 50, 0, 0);
-                        return;
-                    }
-                    if (((Math.Abs(BlackKnight_Two_Position_Ytemp - i) == 2 && Math.Abs(BlackKnight_Two_Position_Xtemp - j) == 1) || (Math.Abs(BlackKnight_Two_Position_Ytemp - i) == 1 && Math.Abs(BlackKnight_Two_Position_Xtemp - j) == 2)) && ChessBoard[i, j] == amenamec)
-                    {
-                        ChessBoard[BlackKnight_Two_Position_Y, BlackKnight_Two_Position_X] = 0;
-                        BlackKnight_Two_Position_X = j;
-                        BlackKnight_Two_Position_Y = i;
                        
-                        Utel(i, j);
-                        ChessBoard[BlackKnight_Two_Position_Y, BlackKnight_Two_Position_X] = -30;
-                        BlackKnight_Two.Margin = new Thickness(BlackKnight_Two_Position_X * 50, BlackKnight_Two_Position_Y * 50, 0, 0);
-                        return;
                     }
-                    if (((Math.Abs(BlackKing_Position_Ytemp - i) == 1 && Math.Abs(BlackKing_Position_Xtemp - j) == 0) || (Math.Abs(BlackKing_Position_Ytemp - i) == 0 && Math.Abs(BlackKing_Position_Xtemp - j) == 1) || (Math.Abs(BlackKing_Position_Ytemp - i) == 1 && Math.Abs(BlackKing_Position_Xtemp - j) == 1)) && ChessBoard[i, j] == amenamec)
+                    if ((((i - Pawn2.figure_ytemp) == 1 && (Pawn2.figure_xtemp - j) == 1) || ((i - Pawn2.figure_ytemp) == 1 && (j - Pawn2.figure_xtemp) == 1)) && ChessBoard[i, j] == amenamec && ChessBoard[Pawn2.figure_ytemp, Pawn2.figure_xtemp] == -10)
                     {
-                        ChessBoard[BlackKing_Position_Y, BlackKing_Position_X] = 0;
-                        BlackKing_Position_X = j;
-                        BlackKing_Position_Y = i;
+                        Pawn2.Pawn_Move(amenamec);
+                        if (!Pawn2.figure)
+                        {
+                            Utel(i, j);
+                            return;
+                        }
+                        
+                    }
+                    if ((((i - Pawn3.figure_ytemp) == 1 && (Pawn3.figure_xtemp - j) == 1) || ((i - Pawn3.figure_ytemp) == 1 && (j - Pawn3.figure_xtemp) == 1)) && ChessBoard[i, j] == amenamec && ChessBoard[Pawn3.figure_ytemp, Pawn3.figure_xtemp] == -10)
+                    {
+                        Pawn3.Pawn_Move(amenamec);
+                        if (!Pawn3.figure)
+                        {
+                            Utel(i, j);
+                            return;
+                        }
+                        
+                    }
+                    if ((((i - Pawn4.figure_ytemp) == 1 && (Pawn4.figure_xtemp - j) == 1) || ((i - Pawn4.figure_ytemp) == 1 && (j - Pawn4.figure_xtemp) == 1)) && ChessBoard[i, j] == amenamec && ChessBoard[Pawn4.figure_ytemp, Pawn4.figure_xtemp] == -10)
+                    {
+                        Pawn4.Pawn_Move(amenamec);
+                        if (!Pawn4.figure)
+                        {
+                            Utel(i, j);
+                            return;
+                        }
+                        
+                    }
+                    if ((((i - Pawn5.figure_ytemp) == 1 && (Pawn5.figure_xtemp - j) == 1) || ((i - Pawn5.figure_ytemp) == 1 && (j - Pawn5.figure_xtemp) == 1)) && ChessBoard[i, j] == amenamec && ChessBoard[Pawn5.figure_ytemp, Pawn5.figure_xtemp] == -10)
+                    {
+                        Pawn5.Pawn_Move(amenamec);
+                        if (!Pawn5.figure)
+                        {
+                            Utel(i, j);
+                            return;
+                        }
+                        
+                    }
+                    if ((((i - Pawn6.figure_ytemp) == 1 && (Pawn6.figure_xtemp - j) == 1) || ((i - Pawn6.figure_ytemp) == 1 && (j - Pawn6.figure_xtemp) == 1)) && ChessBoard[i, j] == amenamec && ChessBoard[Pawn6.figure_ytemp, Pawn6.figure_xtemp] == -10)
+                    {
+                        Pawn6.Pawn_Move(amenamec);
+                        if (!Pawn6.figure)
+                        {
+                            Utel(i, j);
+                            return;
+                        }
+                       
+                    }
+                    if ((((i - Pawn7.figure_ytemp) == 1 && (Pawn7.figure_xtemp - j) == 1) || ((i - Pawn7.figure_ytemp) == 1 && (j - Pawn7.figure_xtemp) == 1)) && ChessBoard[i, j] == amenamec && ChessBoard[Pawn7.figure_ytemp, Pawn7.figure_xtemp] == -10)
+                    {
+                        Pawn7.Pawn_Move(amenamec);
+                        if (!Pawn7.figure)
+                        {
+                            Utel(i, j);
+                            return;
+                        }
+                        
+                    }
+                    if ((((i - Pawn8.figure_ytemp) == 1 && (Pawn8.figure_xtemp - j) == 1) || ((i - Pawn8.figure_ytemp) == 1 && (j - Pawn8.figure_xtemp) == 1)) && ChessBoard[i, j] == amenamec && ChessBoard[Pawn8.figure_ytemp, Pawn8.figure_xtemp] == -10)
+                    {
+                        Pawn8.Pawn_Move(amenamec);
+                        if (!Pawn8.figure)
+                        {
+                            Utel(i, j);
+                            return;
+                        }
+                        
+                    }
+                    if ((j == Queen1.figure_xtemp || i == Queen1.figure_ytemp || Math.Abs(Queen1.figure_ytemp - i) == Math.Abs(Queen1.figure_xtemp - j)) && ChessBoard[i, j] == amenamec)
+                    {
+                        Queen1.Queen_Check(i, j);
+                        
+                        Queen1.Queen_Move();
+                        if (!Queen1.figure)
+                        {
+                            Utel(i, j);
+                            return;
+                        }
+                        
 
-                        Utel(i, j);
-                        ChessBoard[BlackKing_Position_Y, BlackKing_Position_X] = -1000;
-                        BlackKing.Margin = new Thickness(BlackKing_Position_X * 50, BlackKing_Position_Y * 50, 0, 0);
-                        return;
+                        
+
+                    }
+                    if ((j == Rook1.figure_xtemp || i == Rook1.figure_ytemp) && ChessBoard[i, j] == amenamec)
+                    {
+                        
+
+                        Rook1.Rook_Move();
+                        if (!Rook1.figure)
+                        {
+                            Utel(i, j);
+                            return;
+                        }
+                        
+                    }
+
+                    if ((j == Rook2.figure_xtemp || i == Rook2.figure_ytemp) && ChessBoard[i, j] == amenamec)
+                    {
+                      
+
+                        Rook2.Rook_Move();
+                        if (!Rook2.figure)
+                        {
+                            Utel(i, j);
+                            return;
+                        }
+                        
+                      
+                    }
+                    if ((Math.Abs(Bishop1.figure_ytemp - i) == Math.Abs(Bishop1.figure_xtemp - j)) && ChessBoard[i, j] == amenamec)
+                    {
+                        
+                        Bishop1.Bishop_Move();
+                        if (!Bishop1.figure)
+                        {
+                            Utel(i, j);
+                            return;
+                        }
+                        
+                    }
+
+                    if ((Math.Abs(Bishop2.figure_ytemp - i) == Math.Abs(Bishop2.figure_xtemp - j)) && ChessBoard[i, j] == amenamec)
+                    {
+                        
+                        Bishop2.Bishop_Move();
+                        if (!Bishop2.figure)
+                        {
+                            Utel(i, j);
+                            return;
+                        }
+                        
+                    }
+
+
+
+                    if (((Math.Abs(Knight1.figure_ytemp - i) == 2 && Math.Abs(Knight1.figure_xtemp - j) == 1) || (Math.Abs(Knight1.figure_ytemp - i) == 1 && Math.Abs(Knight1.figure_xtemp - j) == 2)) && ChessBoard[i, j] == amenamec)
+                    {
+                        Knight1.Knight_Move();
+                        if (!Knight1.figure)
+                        {
+                            Utel(i, j);
+                            return;
+                        }
+                    
+                    }
+                    if (((Math.Abs(Knight2.figure_ytemp - i) == 2 && Math.Abs(Knight2.figure_xtemp - j) == 1) || (Math.Abs(Knight2.figure_ytemp - i) == 1 && Math.Abs(Knight2.figure_xtemp - j) == 2)) && ChessBoard[i, j] == amenamec)
+                    {
+                        Knight2.Knight_Move();
+                        if (!Knight2.figure)
+                        {
+                            Utel(i, j);
+                            return;
+                        }
+                        
+                    }
+                    if (((Math.Abs(King1.figure_ytemp - i) == 1 && Math.Abs(King1.figure_xtemp - j) == 0) || (Math.Abs(King1.figure_ytemp - i) == 0 && Math.Abs(King1.figure_xtemp - j) == 1) || (Math.Abs(King1.figure_ytemp - i) == 1 && Math.Abs(King1.figure_xtemp - j) == 1)) && ChessBoard[i, j] == amenamec)
+                    {
+                        King1.King_Move();
+                        if (!King1.figure)
+                        {
+                            Utel(i, j);
+                            return;
+                        }
+                        
                     }
 
 
                 }
+                
 
             }
 
-
-
-
-
-
-
-
-            Second_Point();
             
+
+
+
+
+
+
+
+
 
 
 
