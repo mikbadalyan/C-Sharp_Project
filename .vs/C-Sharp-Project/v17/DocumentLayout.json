@@ -7,10 +7,6 @@
       "RelativeMoniker": "D:0:0:{A43A7C35-7B4A-41EB-995F-91E50F25F5EB}|C-Sharp-Project.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A43A7C35-7B4A-41EB-995F-91E50F25F5EB}|C-Sharp-Project.csproj|C:\\Users\\Mikayel\\Desktop\\C-Sharp-Project\\mainwindow.xaml||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A43A7C35-7B4A-41EB-995F-91E50F25F5EB}|C-Sharp-Project.csproj|solutionrelative:mainwindow.xaml||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A43A7C35-7B4A-41EB-995F-91E50F25F5EB}|C-Sharp-Project.csproj|C:\\Users\\Mikayel\\Desktop\\C-Sharp-Project\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{A43A7C35-7B4A-41EB-995F-91E50F25F5EB}|C-Sharp-Project.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
@@ -26,14 +22,15 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\Mikayel\\Desktop\\C-Sharp-Project\\MainWindow.xaml",
               "RelativeDocumentMoniker": "MainWindow.xaml",
               "ToolTip": "C:\\Users\\Mikayel\\Desktop\\C-Sharp-Project\\MainWindow.xaml",
               "RelativeToolTip": "MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-03-30T13:40:37.281Z"
+              "WhenOpened": "2024-03-30T13:40:37.281Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -43,24 +40,11 @@
               "RelativeDocumentMoniker": "MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\Mikayel\\Desktop\\C-Sharp-Project\\MainWindow.xaml.cs",
               "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AQIAAC4AAAAAAAAAAAAAADcAAAAZAAAA",
+              "ViewState": "AQIAAC0GAAAAAAAAAAAAANwEAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "OverriddenGroupName": "",
               "WhenOpened": "2024-03-30T13:40:24.208Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\Mikayel\\Desktop\\C-Sharp-Project\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "MainWindow.xaml",
-              "ToolTip": "C:\\Users\\Mikayel\\Desktop\\C-Sharp-Project\\MainWindow.xaml",
-              "RelativeToolTip": "MainWindow.xaml",
-              "ViewState": "AQIAABcAAAAAAAAAAAAAABoAAABQAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "OverriddenGroupName": "",
-              "WhenOpened": "2024-03-30T13:47:52.938Z"
             }
           ]
         }
