@@ -1079,7 +1079,7 @@ namespace C_Sharp_Project
                     }
                     if ((j == Queen1.figure_xtemp || i == Queen1.figure_ytemp || Math.Abs(Queen1.figure_ytemp - i) == Math.Abs(Queen1.figure_xtemp - j)) && ChessBoard[i, j] > 0)
                     {
-                        if (Math.Abs(Queen1.crit) < 110)
+                        if (Math.Abs(Queen1.crit) < 80)
                         {
                             Queen1.Queen_Check(i, j);
                             if (!Queen1.figure)
@@ -1101,7 +1101,7 @@ namespace C_Sharp_Project
                     }
                     if ((j == Rook1.figure_xtemp || i == Rook1.figure_ytemp) && ChessBoard[i, j] > 0)
                     {
-                        if (Math.Abs(Queen1.crit) < 110)
+                        if (Math.Abs(Queen1.crit) < 80)
                         {
                             Rook1.Rook_Check(i, j);
                             if (!Rook1.figure)
@@ -1144,7 +1144,7 @@ namespace C_Sharp_Project
                     }
                     if (Math.Abs(Bishop1.figure_ytemp - i) == Math.Abs(Bishop1.figure_xtemp - j) && ChessBoard[i, j] > 0)
                     {
-                        if (Math.Abs(Queen1.crit) < 110)
+                        if (Math.Abs(Queen1.crit) < 90)
                         {
                             Bishop1.Bishop_Check(i, j);
                             if (!Bishop1.figure)
@@ -1202,7 +1202,7 @@ namespace C_Sharp_Project
                     }
                     if (((Math.Abs(Knight2.figure_ytemp - i) == 2 && Math.Abs(Knight2.figure_xtemp - j) == 1) || (Math.Abs(Knight2.figure_ytemp - i) == 1 && Math.Abs(Knight2.figure_xtemp - j) == 2)) && ChessBoard[i, j] > 0)
                     {
-                        if (Math.Abs(Queen1.crit) < 110)
+                        if (Math.Abs(Queen1.crit) < 90)
                         {
                             if (ChessBoard[i, j] > amenamec)
                             {
@@ -1305,7 +1305,7 @@ namespace C_Sharp_Project
                 
                 if (WR == false)
                 {
-                    if (ChessBoard[BlackRook_Position_Ytemp, BlackRook_Position_Xtemp] + val > 0)
+                    if (ChessBoard[BlackRook_Position_Ytemp, BlackRook_Position_Xtemp] + val >= 0)
                     {
                         WR = true;
                     }
@@ -1378,7 +1378,7 @@ namespace C_Sharp_Project
                 }
                 if (WRR == false)
                 {
-                    if (ChessBoard[BlackRook_Position_Ytemp, BlackRook_Position_Xtemp] + val > 0)
+                    if (ChessBoard[BlackRook_Position_Ytemp, BlackRook_Position_Xtemp] + val >= 0)
                     {
                         WRR = true;
                     }
@@ -1597,7 +1597,7 @@ namespace C_Sharp_Project
                 }
                 if (WQ == false)
                 {
-                    if (ChessBoard[BlackBishop_Position_Ytemp, BlackBishop_Position_Xtemp] + val > 0)
+                    if (ChessBoard[BlackBishop_Position_Ytemp, BlackBishop_Position_Xtemp] + val >= 0)
                     {
                         WQ = true;
                     }
@@ -1654,7 +1654,7 @@ namespace C_Sharp_Project
                             WP = false;
                             if (WP == false)
                             {
-                                if (ChessBoard[BlackKnight_Position_Ytemp, BlackKnight_Position_Xtemp] + val > 0)
+                                if (ChessBoard[BlackKnight_Position_Ytemp, BlackKnight_Position_Xtemp] + val >= 0)
                                 {
                                     WP = true;
                                 }
@@ -1684,7 +1684,7 @@ namespace C_Sharp_Project
                             WKK = false;
                             if (WKK == false)
                             {
-                                if (ChessBoard[BlackKnight_Position_Ytemp, BlackKnight_Position_Xtemp] + 30 + val > 0)
+                                if (ChessBoard[BlackKnight_Position_Ytemp, BlackKnight_Position_Xtemp] + 30 + val >= 0)
                                 {
                                     WKK = true;
                                 }
@@ -1783,7 +1783,7 @@ namespace C_Sharp_Project
             King1.figure_xtemp = King1.figure_x;
             King1.figure_ytemp = King1.figure_y;
 
-            
+            amenamec = -1;
             choose();
             for (int i = 0; i < 8; i++)
             {
@@ -1844,26 +1844,7 @@ namespace C_Sharp_Project
                         }
                         
                     }
-                    if ((((i - Pawn3.figure_ytemp) == 1 && (Pawn3.figure_xtemp - j) == 1) || ((i - Pawn3.figure_ytemp) == 1 && (j - Pawn3.figure_xtemp) == 1)) && ChessBoard[i, j] == amenamec && amenamec != 0 && ChessBoard[Pawn3.figure_ytemp, Pawn3.figure_xtemp] == -10 && White_Attack(i, j, -10) == 15)
-                    {
-                        Pawn3.Pawn_Move(amenamec);
-                        if (!Pawn3.figure)
-                        {
-                            Utel(i, j);
-                            return;
-                        }
-                        
-                    }
-                    if ((((i - Pawn4.figure_ytemp) == 1 && (Pawn4.figure_xtemp - j) == 1) || ((i - Pawn4.figure_ytemp) == 1 && (j - Pawn4.figure_xtemp) == 1)) && ChessBoard[i, j] == amenamec && amenamec != 0 && ChessBoard[Pawn4.figure_ytemp, Pawn4.figure_xtemp] == -10 && White_Attack(i, j, -10) == 15)
-                    {
-                        Pawn4.Pawn_Move(amenamec);
-                        if (!Pawn4.figure)
-                        {
-                            Utel(i, j);
-                            return;
-                        }
-                        
-                    }
+                    
                     if ((((i - Pawn5.figure_ytemp) == 1 && (Pawn5.figure_xtemp - j) == 1) || ((i - Pawn5.figure_ytemp) == 1 && (j - Pawn5.figure_xtemp) == 1)) && ChessBoard[i, j] == amenamec && amenamec != 0 && ChessBoard[Pawn5.figure_ytemp, Pawn5.figure_xtemp] == -10 && White_Attack(i, j, -10) == 15)
                     {
                         Pawn5.Pawn_Move(amenamec);
@@ -1874,16 +1855,7 @@ namespace C_Sharp_Project
                         }
                         
                     }
-                    if ((((i - Pawn6.figure_ytemp) == 1 && (Pawn6.figure_xtemp - j) == 1) || ((i - Pawn6.figure_ytemp) == 1 && (j - Pawn6.figure_xtemp) == 1)) && ChessBoard[i, j] == amenamec && amenamec != 0 && ChessBoard[Pawn6.figure_ytemp, Pawn6.figure_xtemp] == -10 && White_Attack(i, j, -10) == 15)
-                    {
-                        Pawn6.Pawn_Move(amenamec);
-                        if (!Pawn6.figure)
-                        {
-                            Utel(i, j);
-                            return;
-                        }
-                       
-                    }
+                    
                     if ((((i - Pawn7.figure_ytemp) == 1 && (Pawn7.figure_xtemp - j) == 1) || ((i - Pawn7.figure_ytemp) == 1 && (j - Pawn7.figure_xtemp) == 1)) && ChessBoard[i, j] == amenamec && amenamec != 0 && ChessBoard[Pawn7.figure_ytemp, Pawn7.figure_xtemp] == -10 && White_Attack(i, j, -10) == 15)
                     {
                         Pawn7.Pawn_Move(amenamec);
@@ -1956,6 +1928,26 @@ namespace C_Sharp_Project
                         }
                         
                     }
+                    if ((((i - Pawn3.figure_ytemp) == 1 && (Pawn3.figure_xtemp - j) == 1) || ((i - Pawn3.figure_ytemp) == 1 && (j - Pawn3.figure_xtemp) == 1)) && ChessBoard[i, j] == amenamec && amenamec != 0 && ChessBoard[Pawn3.figure_ytemp, Pawn3.figure_xtemp] == -10 && White_Attack(i, j, -10) == 15)
+                    {
+                        Pawn3.Pawn_Move(amenamec);
+                        if (!Pawn3.figure)
+                        {
+                            Utel(i, j);
+                            return;
+                        }
+
+                    }
+                    if ((((i - Pawn4.figure_ytemp) == 1 && (Pawn4.figure_xtemp - j) == 1) || ((i - Pawn4.figure_ytemp) == 1 && (j - Pawn4.figure_xtemp) == 1)) && ChessBoard[i, j] == amenamec && amenamec != 0 && ChessBoard[Pawn4.figure_ytemp, Pawn4.figure_xtemp] == -10 && White_Attack(i, j, -10) == 15)
+                    {
+                        Pawn4.Pawn_Move(amenamec);
+                        if (!Pawn4.figure)
+                        {
+                            Utel(i, j);
+                            return;
+                        }
+
+                    }
 
                     if ((Math.Abs(Bishop2.figure_ytemp - i) == Math.Abs(Bishop2.figure_xtemp - j)) && ChessBoard[i, j] == amenamec && amenamec != 0 && White_Attack(i, j, -33) == 15)
                     {
@@ -1969,7 +1961,16 @@ namespace C_Sharp_Project
                         
                     }
 
+                    if ((((i - Pawn6.figure_ytemp) == 1 && (Pawn6.figure_xtemp - j) == 1) || ((i - Pawn6.figure_ytemp) == 1 && (j - Pawn6.figure_xtemp) == 1)) && ChessBoard[i, j] == amenamec && amenamec != 0 && ChessBoard[Pawn6.figure_ytemp, Pawn6.figure_xtemp] == -10 && White_Attack(i, j, -10) == 15)
+                    {
+                        Pawn6.Pawn_Move(amenamec);
+                        if (!Pawn6.figure)
+                        {
+                            Utel(i, j);
+                            return;
+                        }
 
+                    }
 
                     if (((Math.Abs(Knight1.figure_ytemp - i) == 2 && Math.Abs(Knight1.figure_xtemp - j) == 1) || (Math.Abs(Knight1.figure_ytemp - i) == 1 && Math.Abs(Knight1.figure_xtemp - j) == 2)) && ChessBoard[i, j] == amenamec && amenamec != 0 && White_Attack(i, j, -30) == 15)
                     {
@@ -2001,6 +2002,16 @@ namespace C_Sharp_Project
                         }
                         
                     }
+                    if ((((i - Pawn8.figure_ytemp) == 1 && (Pawn8.figure_xtemp - j) == 1) || ((i - Pawn8.figure_ytemp) == 1 && (j - Pawn8.figure_xtemp) == 1)) && ChessBoard[i, j] == amenamec && amenamec != 0 && ChessBoard[Pawn8.figure_ytemp, Pawn8.figure_xtemp] == -10 && White_Attack(i, j, -10) == 15)
+                    {
+                        Pawn8.Pawn_Move(amenamec);
+                        if (!Pawn8.figure)
+                        {
+                            Utel(i, j);
+                            return;
+                        }
+
+                    }
 
 
                 }
@@ -2008,7 +2019,7 @@ namespace C_Sharp_Project
 
             }
 
-            //Second_Point();
+           Second_Point();
             return;
         }
         //the end of first   
